@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brasa Lembretes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: barra superior com relógio, lista de lembretes agrupada por dia; formulário e alerta em janelas sobrepostas (bottom sheet no celular). */
+:root {
+  --bg: #15100c;
+  --surface: #1f1712;
+  --surface-2: #2a1f17;
+  --line: #3d2d21;
+  --fg: #f4ebe2;
+  --muted: #b9a390;
+  --accent: #ff8a2b;
+  --accent-soft: #ffb36b;
+  --accent-ink: #1c0f05;
+  --accent-glow: rgba(255, 138, 43, 0.16);
+  --danger: #ff6b5e;
+  --danger-soft: rgba(255, 107, 94, 0.14);
+  --ok: #8fd39a;
+  --overlay: rgba(8, 5, 3, 0.72);
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --radius: 14px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, textarea, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 820px; margin: 0 auto; padding-inline: 16px; }
+
+/* Topo */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.top-inner { display: flex; align-items: center; gap: 16px; padding-block: 14px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+.ember {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--accent-soft), var(--accent) 60%, #c4520f);
+  box-shadow: 0 0 14px 2px var(--accent-glow), 0 0 4px var(--accent);
+}
+.brand h1 { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; margin: 0; letter-spacing: -0.01em; }
+.brand span { color: var(--muted); font-size: 0.85rem; }
+.clock { font-family: var(--font-mono); color: var(--muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+
+.btn {
+  border: 1px solid var(--line); background: var(--surface-2); border-radius: 10px;
+  padding: 10px 16px; cursor: pointer; font-weight: 500; min-height: 44px;
+  transition: background .15s, border-color .15s, transform .1s;
+}
+.btn:hover { border-color: var(--accent); }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+.btn-primary:hover { background: var(--accent-soft); border-color: var(--accent-soft); }
+.btn-ghost { background: transparent; }
+.btn-danger { background: var(--danger-soft); border-color: var(--danger); color: var(--danger); }
+.btn-sm { min-height: 36px; padding: 6px 12px; font-size: 0.875rem; }
+
+/* Próximo lembrete */
+.next {
+  margin-top: 24px; padding: 20px; border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--line); position: relative; overflow: hidden;
+}
+.next::after {
+  content: ""; position: absolute; right: -60px; top: -60px; width: 180px; height: 180px; border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-glow), transparent 70%); pointer-events: none;
+}
+.eyebrow { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-soft); font-weight: 600; }
+.next-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin: 4px 0 2px; text-wrap: balance; overflow-wrap: anywhere; }
+.next-when { color: var(--muted); }
+.next-when strong { color: var(--fg); font-weight: 600; }
+
+/* Lista */
+.list-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 32px 0 8px; flex-wrap: wrap; }
+.list-head h2 { font-family: var(--font-display); font-size: 1.15rem; margin: 0; font-weight: 700; }
+.count { color: var(--muted); font-size: 0.875rem; }
+
+.day { margin-top: 20px; }
+.day-label {
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+  padding-bottom: 8px; border-bottom: 1px dashed var(--line); margin-bottom: 10px;
+}
+.day-label b { color: var(--accent-soft); font-weight: 600; }
+.cards { display: flex; flex-direction: column; gap: 10px; }
+
+.card {
+  display: grid; grid-template-columns: 76px 1fr; gap: 14px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px;
+}
+.card-time { font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent); font-variant-numeric: tabular-nums; padding-top: 2px; }
+.card-body { min-width: 0; }
+.card-title { font-weight: 600; font-size: 1.02rem; margin: 0; overflow-wrap: anywhere; }
+.card-desc { color: var(--muted); margin: 4px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 10px; }
+.chip {
+  font-size: 0.75rem; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted);
+  white-space: nowrap;
+}
+.chip-recur { color: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.chip-rel { color: var(--fg); background: var(--surface-2); border-color: transparent; font-variant-numeric: tabular-nums; }
+.card-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.confirm-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 12px; color: var(--danger); font-size: 0.9rem; }
+
+.empty {
+  margin-top: 24px; padding: 36px 20px; text-align: center; border: 1px dashed var(--line); border-radius: var(--radius);
+  color: var(--muted);
+}
+.empty h3 { font-family: var(--font-display); color: var(--fg); margin: 0 0 6px; font-size: 1.2rem; }
+.empty p { margin: 0 auto 18px; max-width: 42ch; }
+.empty-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+.history { margin: 36px 0 48px; border-top: 1px solid var(--line); padding-top: 16px; }
+.history summary { cursor: pointer; color: var(--muted); font-weight: 500; min-height: 36px; display: flex; align-items: center; }
+.history ul { list-style: none; padding: 0; margin: 12px 0; display: flex; flex-direction: column; gap: 6px; }
+.history li { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 0.9rem; padding: 8px 12px; background: var(--surface); border-radius: 10px; }
+.history li span:first-child { color: var(--fg); overflow-wrap: anywhere; min-width: 0; text-decoration: line-through; text-decoration-color: var(--line); }
+.history li span:last-child { white-space: nowrap; font-family: var(--font-mono); font-size: 0.8rem; }
+
+.warn {
+  margin-top: 16px; padding: 10px 14px; border-radius: 10px; background: var(--danger-soft); color: var(--danger);
+  border: 1px solid var(--danger); font-size: 0.9rem;
+}
+
+/* Janelas sobrepostas */
+.overlay {
+  position: fixed; inset: 0; z-index: 50; background: var(--overlay);
+  display: flex; align-items: center; justify-content: center; padding: 16px;
+  animation: fade .15s ease-out;
+}
+.sheet {
+  width: 100%; max-width: 520px; max-height: calc(100vh - 32px); overflow-y: auto;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  animation: rise .2s ease-out;
+}
+.sheet h2 { font-family: var(--font-display); margin: 0 0 16px; font-size: 1.35rem; }
+@keyframes fade { from { opacity: 0; } }
+@keyframes rise { from { transform: translateY(12px); opacity: 0; } }
+
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.field label, .field legend { font-weight: 500; font-size: 0.9rem; }
+.field .hint { color: var(--muted); font-size: 0.8rem; }
+.input {
+  background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; width: 100%;
+  min-height: 44px;
+}
+.input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-glow); }
+.input[aria-invalid="true"] { border-color: var(--danger); }
+textarea.input { resize: vertical; min-height: 84px; }
+.err { color: var(--danger); font-size: 0.85rem; min-height: 0; }
+.err:empty { display: none; }
+.counter { color: var(--muted); font-size: 0.75rem; text-align: right; font-variant-numeric: tabular-nums; }
+
+fieldset.field { border: 0; padding: 0; margin: 0 0 16px; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 4px; gap: 4px; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { text-align: center; padding: 9px; border-radius: 7px; cursor: pointer; font-weight: 500; color: var(--muted); }
+.seg input:checked + label { background: var(--accent); color: var(--accent-ink); }
+.seg input:focus-visible + label { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+
+.sheet-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px; flex-wrap: wrap; }
+
+/* Alerta */
+.alert-sheet { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-glow), 0 24px 60px rgba(0,0,0,.6); }
+.alert-top { display: flex; align-items: center; gap: 10px; justify-content: space-between; margin-bottom: 8px; }
+.alert-top .ember { animation: pulse 1.2s ease-in-out infinite; }
+.alert-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; margin: 6px 0; overflow-wrap: anywhere; text-wrap: balance; }
+.alert-desc { color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; margin: 0 0 8px; }
+.alert-when { font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent-soft); }
+.divider { border: 0; border-top: 1px solid var(--line); margin: 18px 0; }
+.snooze-quick { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 12px; }
+.snooze-custom { display: flex; gap: 8px; flex-wrap: wrap; }
+.snooze-custom .input { flex: 1 1 200px; width: auto; }
+@keyframes pulse { 50% { transform: scale(1.35); box-shadow: 0 0 22px 6px var(--accent-glow); } }
+
+/* Aviso rápido */
+.toast {
+  position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+  background: var(--fg); color: var(--accent-ink); padding: 10px 18px; border-radius: 999px; font-weight: 500;
+  z-index: 60; box-shadow: 0 8px 24px rgba(0,0,0,.4); max-width: calc(100% - 32px); text-align: center;
+  animation: rise .2s ease-out;
+}
+
+@media (max-width: 560px) {
+  .top-inner { gap: 10px; }
+  .clock { order: 3; width: 100%; }
+  .overlay { align-items: flex-end; padding: 0; }
+  .sheet { border-radius: 18px 18px 0 0; max-height: 92vh; padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px)); }
+  .card { grid-template-columns: 1fr; gap: 4px; }
+  .sheet-actions .btn { flex: 1 1 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <div class="brand">
+      <div class="ember" aria-hidden="true"></div>
+      <h1>Brasa</h1>
+      <span>lembretes</span>
+    </div>
+    <div class="clock" id="clock" aria-live="off"></div>
+    <button class="btn btn-primary" id="btnNew" type="button">+ Novo lembrete</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="warn" id="storageWarn" hidden>Não foi possível usar o armazenamento do navegador. Os lembretes funcionam, mas serão perdidos ao fechar a página.</div>
+
+  <section class="next" id="nextBox" hidden aria-live="polite">
+    <div class="eyebrow">Próximo lembrete</div>
+    <div class="next-title" id="nextTitle"></div>
+    <div class="next-when" id="nextWhen"></div>
+  </section>
+
+  <div class="list-head">
+    <h2>Lembretes futuros</h2>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="empty" id="empty" hidden>
+    <h3>Nenhum lembrete agendado</h3>
+    <p>Crie um lembrete com título, data e hora. Quando chegar a hora, um alerta aparece nesta página.</p>
+    <div class="empty-actions">
+      <button class="btn btn-primary" id="btnEmptyNew" type="button">Criar primeiro lembrete</button>
+      <button class="btn btn-ghost" id="btnSamples" type="button">Carregar exemplos</button>
+    </div>
+  </div>
+
+  <details class="history" id="history" hidden>
+    <summary id="historySummary">Concluídos</summary>
+    <ul id="historyList"></ul>
+    <button class="btn btn-sm btn-ghost" id="btnClearHistory" type="button">Limpar concluídos</button>
+  </details>
+</main>
+
+<!-- Formulário -->
+<div class="overlay" id="formModal" hidden>
+  <form class="sheet" id="form" role="dialog" aria-modal="true" aria-labelledby="formTitle" novalidate>
+    <h2 id="formTitle">Novo lembrete</h2>
+
+    <div class="field">
+      <label for="fTitle">Título</label>
+      <input class="input" id="fTitle" name="title" type="text" maxlength="80" autocomplete="off" placeholder="Ex.: Pagar boleto do condomínio">
+      <div class="counter"><span id="fTitleCount">0</span>/80</div>
+      <div class="err" id="eTitle"></div>
+    </div>
+
+    <div class="field">
+      <label for="fDesc">Descrição <span class="hint">(opcional)</span></label>
+      <textarea class="input" id="fDesc" name="desc" maxlength="500" placeholder="Detalhes que você vai querer ler na hora do alerta"></textarea>
+      <div class="counter"><span id="fDescCount">0</span>/500</div>
+    </div>
+
+    <fieldset class="field">
+      <legend>Repetição</legend>
+      <div class="seg">
+        <input type="radio" name="kind" id="kindOnce" value="once" checked>
+        <label for="kindOnce">Único</label>
+        <input type="radio" name="kind" id="kindRecur" value="recur">
+        <label for="kindRecur">Recorrente</label>
+      </div>
+    </fieldset>
+
+    <div class="field" id="freqField" hidden>
+      <label for="fFreq">Frequência</label>
+      <select class="input" id="fFreq" name="freq">
+        <option value="daily">Todos os dias</option>
+        <option value="weekly">Toda semana</option>
+        <option value="monthly">Todo mês</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="fWhen">Data e hora do lembrete</label>
+      <input class="input" id="fWhen" name="when" type="datetime-local">
+      <span class="hint">Precisa ser uma data e hora futura.</span>
+      <div class="err" id="eWhen"></div>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn btn-ghost" type="button" id="btnCancel">Cancelar</button>
+      <button class="btn btn-primary" type="submit" id="btnSave">Salvar lembrete</button>
+    </div>
+  </form>
+</div>
+
+<!-- Alerta -->
+<div class="overlay" id="alertModal" hidden>
+  <div class="sheet alert-sheet" role="alertdialog" aria-modal="true" aria-labelledby="aTitle" aria-describedby="aDesc">
+    <div class="alert-top">
+      <div style="display:flex;align-items:center;gap:10px"><div class="ember" aria-hidden="true"></div><span class="eyebrow">Chegou a hora</span></div>
+      <span class="count" id="aQueue"></span>
+    </div>
+    <div class="alert-title" id="aTitle"></div>
+    <p class="alert-desc" id="aDesc"></p>
+    <div class="alert-when" id="aWhen"></div>
+    <div class="meta" id="aMeta"></div>
+
+    <div class="sheet-actions" style="justify-content:stretch;margin-top:18px">
+      <button class="btn btn-primary" type="button" id="btnSeen" style="flex:1">Marcar como visto</button>
+    </div>
+
+    <hr class="divider">
+    <div class="eyebrow" style="color:var(--muted)">Ou adiar para</div>
+    <div class="snooze-quick">
+      <button class="btn btn-sm" type="button" data-snooze="10">+10 min</button>
+      <button class="btn btn-sm" type="button" data-snooze="60">+1 hora</button>
+      <button class="btn btn-sm" type="button" data-snooze="tomorrow">Amanhã às 9h</button>
+    </div>
+    <div class="snooze-custom">
+      <label for="aSnoozeWhen" class="hint" style="width:100%">Outra data e hora</label>
+      <input class="input" type="datetime-local" id="aSnoozeWhen">
+      <button class="btn" type="button" id="btnSnoozeCustom">Adiar</button>
+    </div>
+    <div class="err" id="eSnooze" style="margin-top:6px"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var KEY = "brasa.lembretes.v1";
+  var FREQ_LABEL = { daily: "Diário", weekly: "Semanal", monthly: "Mensal" };
+  var items = [];
+  var queue = [];
+  var alertOpen = false;
+  var editingId = null;
+  var pendingDeleteId = null;
+  var audioCtx = null;
+  var baseTitle = document.title;
+  var lastMinute = -1;
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  // ---------- Armazenamento ----------
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      var parsed = raw ? JSON.parse(raw) : [];
+      items = Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      items = [];
+      $("storageWarn").hidden = false;
+    }
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(items)); }
+    catch (e) { $("storageWarn").hidden = false; }
+  }
+
+  // ---------- Datas ----------
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function toLocalInput(ms) {
+    var d = new Date(ms);
+    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) + "T" + pad(d.getHours()) + ":" + pad(d.getMinutes());
+  }
+  function fromLocalInput(v) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(v || "");
+    if (!m) return NaN;
+    return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], 0, 0).getTime();
+  }
+  function nextMinute() {
+    var d = new Date(); d.setSeconds(0, 0); d.setMinutes(d.getMinutes() + 1); return d.getTime();
+  }
+  function startOfDay(ms) { var d = new Date(ms); d.setHours(0, 0, 0, 0); return d.getTime(); }
+  function fmtTime(ms) { return new Date(ms).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }); }
+  function fmtFull(ms) {
+    return new Date(ms).toLocaleString("pt-BR", { weekday: "short", day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  }
+  function dayLabel(ms) {
+    var today = startOfDay(Date.now());
+    var day = startOfDay(ms);
+    var diff = Math.round((day - today) / 86400000);
+    var full = new Date(ms).toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" });
+    if (diff === 0) return "<b>Hoje</b> · " + escapeHtml(full);
+    if (diff === 1) return "<b>Amanhã</b> · " + escapeHtml(full);
+    return escapeHtml(full);
+  }
+  function rel(ms) {
+    var diff = ms - Date.now();
+    var min = Math.ceil(diff / 60000);
+    if (min <= 1) return "em menos de 1 min";
+    if (min < 60) return "em " + min + " min";
+    var h = Math.floor(min / 60), m = min % 60;
+    if (h < 24) return m ? "em " + h + " h " + m + " min" : "em " + h + " h";
+    var d = Math.floor(h / 24), hh = h % 24;
+    return hh ? "em " + d + " d " + hh + " h" : "em " + d + " d";
+  }
+  function addPeriod(ms, freq, originDay) {
+    var d = new Date(ms);
+    if (freq === "daily") d.setDate(d.getDate() + 1);
+    else if (freq === "weekly") d.setDate(d.getDate() + 7);
+    else if (freq === "monthly") {
+      var y = d.getFullYear(), m = d.getMonth() + 1;
+      var last = new Date(y, m + 1, 0).getDate();
+      d.setDate(1); d.setMonth(m); d.setDate(Math.min(originDay || 1, last));
+    }
+    return d.getTime();
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+  // ---------- Renderização ----------
+  function upcoming() {
+    var now = Date.now();
+    return items
+      .filter(function (i) { return i.status === "pending" && i.dueAt > now && queue.indexOf(i.id) === -1; })
+      .sort(function (a, b) { return a.dueAt - b.dueAt; });
+  }
+
+  function render() {
+    var list = upcoming();
+    var box = $("list");
+    box.innerHTML = "";
+    $("empty").hidden = list.length > 0;
+    $("count").textContent = list.length ? list.length + (list.length === 1 ? " lembrete" : " lembretes") : "";
+
+    if (list.length) {
+      var first = list[0];
+      $("nextBox").hidden = false;
+      $("nextTitle").textContent = first.title;
+      $("nextWhen").innerHTML = "<strong>" + escapeHtml(fmtFull(first.dueAt)) + "</strong> · " + rel(first.dueAt);
+    } else {
+      $("nextBox").hidden = true;
+    }
+
+    var groups = [];
+    list.forEach(function (it) {
+      var k = startOfDay(it.dueAt);
+      var g = groups[groups.length - 1];
+      if (!g || g.key !== k) { g = { key: k, items: [] }; groups.push(g); }
+      g.items.push(it);
+    });
+
+    groups.forEach(function (g) {
+      var sec = document.createElement("section");
+      sec.className = "day";
+      sec.innerHTML = '<div class="day-label">' + dayLabel(g.key) + '</div><div class="cards"></div>';
+      var cards = sec.querySelector(".cards");
+      g.items.forEach(function (it) { cards.appendChild(card(it)); });
+      box.appendChild(sec);
+    });
+
+    renderHistory();
+  }
+
+  function card(it) {
+    var el = document.createElement("article");
+    el.className = "card";
+    el.dataset.id = it.id;
+    var recurChip = it.freq
+      ? '<span class="chip chip-recur">Recorrente · ' + FREQ_LABEL[it.freq] + "</span>"
+      : '<span class="chip">Único</span>';
+    var snoozed = it.snoozes ? '<span class="chip">Adiado ' + it.snoozes + "x</span>" : "";
+    var actions = pendingDeleteId === it.id
+      ? '<div class="confirm-row">Excluir este lembrete? <button class="btn btn-sm btn-danger" data-act="confirm-del">Excluir</button><button class="btn btn-sm btn-ghost" data-act="cancel-del">Cancelar</button></div>'
+      : '<div class="card-actions"><button class="btn btn-sm" data-act="edit">Editar</button><button class="btn btn-sm btn-ghost" data-act="del">Excluir</button></div>';
+    el.innerHTML =
+      '<div class="card-time">' + fmtTime(it.dueAt) + "</div>" +
+      '<div class="card-body">' +
+      '<h3 class="card-title">' + escapeHtml(it.title) + "</h3>" +
+      (it.desc ? '<p class="card-desc">' + escapeHtml(it.desc) + "</p>" : "") +
+      '<div class="meta">' + recurChip + snoozed + '<span class="chip chip-rel">' + rel(it.dueAt) + "</span></div>" +
+      actions + "</div>";
+    return el;
+  }
+
+  function renderHistory() {
+    var done = items.filter(function (i) { return i.status === "done"; })
+      .sort(function (a, b) { return (b.doneAt || 0) - (a.doneAt || 0); });
+    $("history").hidden = done.length === 0;
+    $("historySummary").textContent = "Concluídos (" + done.length + ")";
+    $("historyList").innerHTML = done.map(function (i) {
+      return "<li><span>" + escapeHtml(i.title) + "</span><span>" + escapeHtml(fmtFull(i.doneAt || i.dueAt)) + "</span></li>";
+    }).join("");
+  }
+
+  // ---------- Formulário ----------
+  function openForm(it) {
+    editingId = it ? it.id : null;
+    $("formTitle").textContent = it ? "Editar lembrete" : "Novo lembrete";
+    $("btnSave").textContent = it ? "Salvar alterações" : "Salvar lembrete";
+    $("fTitle").value = it ? it.title : "";
+    $("fDesc").value = it ? (it.desc || "") : "";
+    $("kindOnce").checked = !(it && it.freq);
+    $("kindRecur").checked = !!(it && it.freq);
+    $("fFreq").value = it && it.freq ? it.freq : "daily";
+    $("freqField").hidden = !(it && it.freq);
+    $("fWhen").min = toLocalInput(nextMinute());
+    $("fWhen").value = it ? toLocalInput(it.dueAt) : "";
+    clearErrors();
+    updateCounters();
+    $("formModal").hidden = false;
+    setTimeout(function () { $("fTitle").focus(); }, 30);
+  }
+  function closeForm() { $("formModal").hidden = true; editingId = null; $("btnNew").focus(); }
+  function clearErrors() {
+    ["eTitle", "eWhen"].forEach(function (id) { $(id).textContent = ""; });
+    $("fTitle").removeAttribute("aria-invalid");
+    $("fWhen").removeAttribute("aria-invalid");
+  }
+  function updateCounters() {
+    $("fTitleCount").textContent = $("fTitle").value.length;
+    $("fDescCount").textContent = $("fDesc").value.length;
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+    clearErrors();
+    var title = $("fTitle").value.trim();
+    var desc = $("fDesc").value.trim();
+    var recur = $("kindRecur").checked;
+    var freq = recur ? $("fFreq").value : null;
+    var when = fromLocalInput($("fWhen").value);
+    var ok = true;
+
+    if (!title) {
+      $("eTitle").textContent = "Informe um título para o lembrete.";
+      $("fTitle").setAttribute("aria-invalid", "true");
+      ok = false;
+    }
+    if (isNaN(when)) {
+      $("eWhen").textContent = "Informe a data e a hora do lembrete.";
+      $("fWhen").setAttribute("aria-invalid", "true");
+      ok = false;
+    } else if (when <= Date.now()) {
+      $("eWhen").textContent = "Escolha uma data e hora no futuro.";
+      $("fWhen").setAttribute("aria-invalid", "true");
+      ok = false;
+    }
+    if (!ok) {
+      var firstBad = document.querySelector('#form [aria-invalid="true"]');
+      if (firstBad) firstBad.focus();
+      return;
+    }
+
+    var originDay = new Date(when).getDate();
+    if (editingId) {
+      var it = items.find(function (i) { return i.id === editingId; });
+      if (it) {
+        it.title = title; it.desc = desc; it.freq = freq;
+        it.anchor = when; it.dueAt = when; it.originDay = originDay;
+        it.updatedAt = Date.now();
+      }
+      toast("Lembrete atualizado");
+    } else {
+      items.push({
+        id: uid(), title: title, desc: desc, freq: freq,
+        anchor: when, dueAt: when, originDay: originDay,
+        status: "pending", snoozes: 0, createdAt: Date.now()
+      });
+      toast("Lembrete criado para " + fmtFull(when));
+    }
+    save();
+    closeForm();
+    render();
+  }
+
+  // ---------- Alerta ----------
+  function checkDue() {
+    var now = Date.now();
+    items
+      .filter(function (i) { return i.status === "pending" && i.dueAt <= now; })
+      .sort(function (a, b) { return a.dueAt - b.dueAt; })
+      .forEach(function (i) {
+        if (queue.indexOf(i.id) === -1) { queue.push(i.id); render(); }
+      });
+    if (queue.length && !alertOpen) showAlert();
+  }
+
+  function currentAlertItem() {
+    while (queue.length) {
+      var it = items.find(function (i) { return i.id === queue[0]; });
+      if (it && it.status === "pending") return it;
+      queue.shift();
+    }
+    return null;
+  }
+
+  function showAlert() {
+    var it = currentAlertItem();
+    if (!it) { hideAlert(); return; }
+    alertOpen = true;
+    $("aTitle").textContent = it.title;
+    $("aDesc").textContent = it.desc || "";
+    $("aDesc").hidden = !it.desc;
+    $("aWhen").textContent = "Agendado para " + fmtFull(it.dueAt);
+    $("aMeta").innerHTML = it.freq
+      ? '<span class="chip chip-recur">Recorrente · ' + FREQ_LABEL[it.freq] + "</span>"
+      : '<span class="chip">Único</span>';
+    $("aQueue").textContent = queue.length > 1 ? "1 de " + queue.length : "";
+    $("aSnoozeWhen").min = toLocalInput(nextMinute());
+    $("aSnoozeWhen").value = "";
+    $("eSnooze").textContent = "";
+    if (!$("formModal").hidden) $("formModal").hidden = true;
+    $("alertModal").hidden = false;
+    document.title = "(" + queue.length + ") Lembrete agora · " + baseTitle;
+    beep();
+    setTimeout(function () { $("btnSeen").focus(); }, 30);
+  }
+
+  function hideAlert() {
+    alertOpen = false;
+    $("alertModal").hidden = true;
+    document.title = baseTitle;
+  }
+
+  function afterAlertAction(msg) {
+    queue.shift();
+    save();
+    render();
+    toast(msg);
+    if (currentAlertItem()) showAlert(); else hideAlert();
+  }
+
+  function markSeen() {
+    var it = currentAlertItem();
+    if (!it) return;
+    it.lastSeenAt = Date.now();
+    if (it.freq) {
+      var next = it.anchor;
+      var now = Date.now();
+      do { next = addPeriod(next, it.freq, it.originDay); } while (next <= now);
+      it.anchor = next;
+      it.dueAt = next;
+      afterAlertAction("Visto. Próxima vez: " + fmtFull(next));
+    } else {
+      it.status = "done";
+      it.doneAt = Date.now();
+      afterAlertAction("Lembrete marcado como visto");
+    }
+  }
+
+  function snooze(ms) {
+    var it = currentAlertItem();
+    if (!it) return;
+    if (isNaN(ms)) { $("eSnooze").textContent = "Escolha a nova data e hora."; return; }
+    if (ms <= Date.now()) { $("eSnooze").textContent = "A nova data precisa estar no futuro."; return; }
+    it.dueAt = ms;
+    it.snoozes = (it.snoozes || 0) + 1;
+    afterAlertAction("Adiado para " + fmtFull(ms));
+  }
+
+  function beep() {
+    if (!audioCtx) return;
+    try {
+      var t = audioCtx.currentTime;
+      [0, 0.22].forEach(function (off) {
+        var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.type = "sine"; o.frequency.value = 880;
+        g.gain.setValueAtTime(0.0001, t + off);
+        g.gain.exponentialRampToValueAtTime(0.2, t + off + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + off + 0.18);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(t + off); o.stop(t + off + 0.2);
+      });
+    } catch (e) { /* som é opcional */ }
+  }
+
+  // ---------- Avisos ----------
+  var toastTimer = null;
+  function toast(msg) {
+    var t = $("toast");
+    t.textContent = msg;
+    t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.hidden = true; }, 3200);
+  }
+
+  // ---------- Exemplos ----------
+  function loadSamples() {
+    var base = Date.now();
+    function at(minutes) { var d = new Date(base + minutes * 60000); d.setSeconds(0, 0); return d.getTime(); }
+    var samples = [
+      { title: "(exemplo) Tomar água", desc: "Lembrete de teste que dispara em 2 minutos.", freq: null, when: at(2) },
+      { title: "(exemplo) Reunião semanal do time", desc: "Levar os indicadores da semana.", freq: "weekly", when: at(60 * 26) },
+      { title: "(exemplo) Pagar aluguel", desc: "", freq: "monthly", when: at(60 * 24 * 5) }
+    ];
+    samples.forEach(function (s) {
+      items.push({ id: uid(), title: s.title, desc: s.desc, freq: s.freq, anchor: s.when, dueAt: s.when,
+        originDay: new Date(s.when).getDate(), status: "pending", snoozes: 0, createdAt: Date.now() });
+    });
+    save(); render();
+    toast("3 lembretes de exemplo adicionados");
+  }
+
+  // ---------- Relógio e ciclo ----------
+  function tick() {
+    var now = new Date();
+    $("clock").textContent = now.toLocaleDateString("pt-BR", { weekday: "short", day: "2-digit", month: "short" }) + " · " +
+      now.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    checkDue();
+    if (now.getMinutes() !== lastMinute) {
+      lastMinute = now.getMinutes();
+      render();
+    }
+  }
+
+  // ---------- Eventos ----------
+  $("btnNew").addEventListener("click", function () { openForm(null); });
+  $("btnEmptyNew").addEventListener("click", function () { openForm(null); });
+  $("btnSamples").addEventListener("click", loadSamples);
+  $("btnCancel").addEventListener("click", closeForm);
+  $("form").addEventListener("submit", submitForm);
+  $("fTitle").addEventListener("input", updateCounters);
+  $("fDesc").addEventListener("input", updateCounters);
+  $("kindOnce").addEventListener("change", function () { $("freqField").hidden = true; });
+  $("kindRecur").addEventListener("change", function () { $("freqField").hidden = false; });
+  $("formModal").addEventListener("click", function (e) { if (e.target === $("formModal")) closeForm(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !$("formModal").hidden) closeForm();
+  });
+
+  $("list").addEventListener("click", function (e) {
+    var btn = e.target.closest("button[data-act]");
+    if (!btn) return;
+    var id = btn.closest(".card").dataset.id;
+    var it = items.find(function (i) { return i.id === id; });
+    var act = btn.dataset.act;
+    if (act === "edit" && it) openForm(it);
+    if (act === "del") { pendingDeleteId = id; render(); }
+    if (act === "cancel-del") { pendingDeleteId = null; render(); }
+    if (act === "confirm-del") {
+      items = items.filter(function (i) { return i.id !== id; });
+      pendingDeleteId = null;
+      save(); render(); toast("Lembrete excluído");
+    }
+  });
+
+  $("btnSeen").addEventListener("click", markSeen);
+  document.querySelectorAll("[data-snooze]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var v = b.dataset.snooze;
+      if (v === "tomorrow") {
+        var d = new Date(); d.setDate(d.getDate() + 1); d.setHours(9, 0, 0, 0);
+        snooze(d.getTime());
+      } else {
+        var t = new Date(Date.now() + (+v) * 60000); t.setSeconds(0, 0);
+        snooze(t.getTime());
+      }
+    });
+  });
+  $("btnSnoozeCustom").addEventListener("click", function () { snooze(fromLocalInput($("aSnoozeWhen").value)); });
+
+  $("btnClearHistory").addEventListener("click", function () {
+    items = items.filter(function (i) { return i.status !== "done"; });
+    save(); render(); toast("Concluídos removidos");
+  });
+
+  // Libera o som após a primeira interação do usuário
+  document.addEventListener("pointerdown", function () {
+    if (audioCtx) return;
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { audioCtx = null; }
+  });
+
+  // Sincroniza entre abas abertas
+  window.addEventListener("storage", function (e) {
+    if (e.key === KEY) { load(); render(); }
+  });
+
+  load();
+  render();
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>
