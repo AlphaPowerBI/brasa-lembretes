@@ -1,11 +1,6 @@
 # Casos de Teste em Gherkin — Brasa Lembretes
 
-## 1 - Técnicas aplicadas:
-- 
-
----
-
-## 2 - Cadastro de lembrete
+## 1 - Cadastro de lembrete
 
 ```gherkin
 # language: pt
@@ -23,7 +18,7 @@ Funcionalidade: Cadastro de lembrete
     E clico em "Salvar lembrete"
     Então o formulário é fechado
     E vejo o aviso "Lembrete criado para" seguido da data e hora informadas
-    E o lembrete aparece em "Lembretes futuros" com o chip "Único"
+    E o lembrete aparece em "Lembretes futuros" com o card "Único"
     E o contador exibe "1 lembrete"
     E o bloco "Próximo lembrete" exibe "Pagar boleto do condomínio"
 
@@ -252,3 +247,111 @@ Funcionalidade: Lembretes recorrentes
 ---
 
 ## 3. Listagem de lembretes futuros
+
+```gherkin
+# language: pt
+Funcionalidade: Listagem de lembretes futuros
+  Como um usuário
+  Desejo ver meus lembretes ordenados e agrupados por dia
+  Para saber o que vem pela frente    
+
+  @CT-024 
+  Cenário: Estado vazio na primeira visita
+    Dado que acesso a aplicação Brasa Lembretes
+    E não existem lembretes salvos
+    Então vejo a mensagem "Nenhum lembrete agendado"
+    E vejo os botões "Criar primeiro lembrete" e "Carregar exemplos"
+    E o bloco "Próximo lembrete" está oculto
+    E o contador de lembretes está vazio
+    E a seção "Concluídos" está oculta
+
+  @CT-025
+  Cenário: Botão "Criar primeiro lembrete" abre o formulário
+    Dado que acesso a aplicação Brasa Lembretes
+    E não existem lembretes salvos
+    Quando clico em "Criar primeiro lembrete"
+    Então o formulário "Novo lembrete" é exibido
+
+  @CT-026
+  Cenário: Carregar exemplos
+    Dado que acesso a aplicação Brasa Lembretes
+    E não existem lembretes salvos
+    Quando clico em "Carregar exemplos"
+    Então vejo o aviso "3 lembretes de exemplo adicionados"
+    E vejo os lembretes "(exemplo) Tomar água", "(exemplo) Reunião semanal do time" e "(exemplo) Pagar aluguel"
+    E o estado vazio deixa de ser exibido
+    E "(exemplo) Tomar água" é único, "(exemplo) Reunião semanal do time" é semanal e "(exemplo) Pagar aluguel" é mensal
+
+  @CT-027 
+  Cenário: Ordenação do mais próximo para o mais distante
+    Dado que cadastrei os lembretes nesta ordem:
+      | título | quando         |
+      | C      | daqui a 3 dias |
+      | A      | daqui a 1 hora |
+      | B      | daqui a 2 dias |
+    Então a lista exibe os lembretes na ordem A, B, C
+    E o bloco "Próximo lembrete" exibe "A"
+
+  @CT-028 
+  Cenário: Agrupamento por dia com rótulos "Hoje" e "Amanhã"
+    Dado que existem lembretes para hoje, amanhã e daqui a 5 dias
+    Então vejo três grupos de dia
+    E o primeiro grupo tem o rótulo "Hoje" seguido da data por extenso
+    E o segundo grupo tem o rótulo "Amanhã" seguido da data por extenso
+    E o terceiro grupo exibe apenas o dia da semana e a data por extenso
+
+  @CT-029
+  Cenário: Lembretes no mesmo dia ficam no mesmo grupo, ordenados por horário
+    Dado que existem lembretes amanhã às 15:00, 09:00 e 12:30
+    Então há um único grupo "Amanhã"
+    E os cartões aparecem na ordem 09:00, 12:30, 15:00
+
+  @CT-030 
+  enário: Lembretes em lados opostos da meia-noite ficam em grupos diferentes
+    Dado que existem lembretes às <horario_1> e às <horario_2> do mesmo dia civil seguinte
+    Então eles pertencem ao mesmo grupo
+
+    Exemplos:
+      | horario_1 | horario_2 |
+      | 00:00     | 23:59     |
+
+  @CT-031
+  Cenário: Contador no singular e no plural
+    Dado que existem <quantidade> lembretes futuros
+    Então o contador exibe "<texto>"
+
+    Exemplos:
+      | quantidade | texto         |
+      | 1          | 1 lembrete    |
+      | 2          | 2 lembretes   |
+      | 10         | 10 lembretes  |
+
+  @CT-032 
+  Cenário: Texto de tempo relativo no cartão
+    Dado que existe um lembrete agendado para <distancia>
+    Então o card de tempo relativo exibe "<texto>"
+
+    Exemplos:
+      | distancia                | texto               |
+      | daqui a 30 segundos      | em menos de 1 min   |
+      | daqui a 1 minuto         | em menos de 1 min   |
+      | daqui a 45 minutos       | em 45 min           |
+      | daqui a 2 horas          | em 2 h              |
+      | daqui a 2 horas e 15 min | em 2 h 15 min       |
+      | daqui a 3 dias           | em 3 d              |
+      | daqui a 1 dia e 4 horas  | em 1 d 4 h          |
+
+  @CT-033
+  Cenário: Lembrete futuro não exibe alerta
+    Dado que existe um lembrete agendado para daqui a 1 hora
+    Então nenhum alerta "Chegou a hora" é exibido
+
+  @CT-034 
+  Cenário: Cartão exibe o horário no formato 24 horas
+    Dado que existe um lembrete agendado para amanhã às 14:05
+    Então o cartão exibe o horário "14:05"
+```
+
+---
+
+## 4. Edição de lembrete
