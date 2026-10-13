@@ -204,3 +204,51 @@ Funcionalidade: Cadastro de lembrete
 ---
 
 ## 2. Lembretes recorrentes
+```gherkin
+# language: pt
+Funcionalidade: Lembretes recorrentes
+  Como um usuário
+  Desejo criar lembretes que se repetem
+  Para não precisar recadastrar atividades periódicas
+   
+
+  @CT-020
+  Cenário: Alternar entre Único e Recorrente exibe e oculta a frequência
+    Dado que acesso a aplicação Brasa Lembretes
+    E que não existem lembretes salvos no navegador
+    Quando clico em "+ Novo lembrete"
+    Então o campo "Frequência" está oculto
+    E a opção "Único" está selecionada
+    Quando seleciono "Recorrente"
+    Então o campo "Frequência" é exibido com o valor "Todos os dias"
+    Quando seleciono "Único"
+    Então o campo "Frequência" volta a ficar oculto
+
+  @CT-021
+  Esquema do Cenário: Criar lembrete recorrente em cada frequência
+    Dado que acesso a aplicação Brasa Lembretes
+    E que não existem lembretes salvos no navegador
+    Quando clico em "+ Novo lembrete"
+    E preencho o título com "Lembrete <frequencia>"
+    E seleciono "Recorrente"
+    E escolho a frequência "<opcao>"
+    E informo uma data e hora futura
+    E clico em "Salvar lembrete"
+    Então o cartão exibe a tag "Recorrente · Frequencia"
+
+    Exemplos:
+      | frequencia | opcao         | tag     |
+      | diário     | Todos os dias | Diário  |
+      | semanal    | Toda semana   | Semanal |
+      | mensal     | Todo mês      | Mensal  |
+
+  @CT-022
+  Cenário: Lembrete recorrente aparece uma única vez na lista de futuros
+    Dado que criei um lembrete diário para amanhã às 08:00
+    Então a lista exibe apenas 1 cartão para ele
+    E o contador exibe "1 lembrete"
+```
+
+---
+
+## 3. Listagem de lembretes futuros
