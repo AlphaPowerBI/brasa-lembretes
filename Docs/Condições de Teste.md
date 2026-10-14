@@ -1,6 +1,6 @@
 # Condições de Teste
 
-Este documento consolida as condições de teste derivadas dos [Casos de Teste em Gherkin](./Casos%20de%20Teste%20em%20Gherkin.md), identificados de CT-001 a CT-114. A prioridade indica a importância de validar cada condição para o funcionamento e a experiência de uso da aplicação.
+Este documento consolida as condições de teste derivadas dos [Casos de Teste em Gherkin](./Casos%20de%20Teste%20em%20Gherkin.md), identificados de CT-001 a CT-124. A prioridade indica a importância de validar cada condição para o funcionamento e a experiência de uso da aplicação.
 
 ## Requisitos Testados
 
@@ -10,9 +10,12 @@ Este documento consolida as condições de teste derivadas dos [Casos de Teste e
 - Exibição e tratamento de alertas no horário agendado, inclusive em fila.
 - Conclusão de lembretes únicos, avanço de ocorrências recorrentes e adiamento.
 - Consulta, ordenação, persistência e limpeza do histórico de concluídos.
-- Persistência local, recuperação diante de dados inválidos e sincronização entre abas.
+- Persistência local, recuperação diante de dados inválidos, sincronização entre abas e resiliência de schema.
 - Atualização automática do relógio, dos tempos relativos e dos alertas.
-- Responsividade, acessibilidade, compatibilidade entre navegadores e legibilidade da interface.
+- Comportamento temporal sob transições de fuso horário, horário de verão (DST), suspensão/hibernação e ajuste do relógio do sistema.
+- Tolerância a limites físicos de armazenamento local (`QuotaExceededError`) e desempenho sob volume de dados.
+- Regras de borda para anos bissextos e meses de duração variável em datas recorrentes.
+- Responsividade, acessibilidade, compatibilidade entre navegadores e sanitização de segurança (XSS).
 
 ## Condições
 
