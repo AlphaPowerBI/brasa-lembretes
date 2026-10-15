@@ -127,7 +127,7 @@ Funcionalidade: Cadastro de lembrete
 
   @CT-012 
   Cenário: Espaços nas extremidades do título são removidos
-     Dado que acesso a aplicação Brasa Lembretes        
+    Dado que acesso a aplicação Brasa Lembretes        
     Quando clico em "+ Novo lembrete"
     E preencho o título com "   Ligar para o banco   "
     E informo uma data e hora futura
@@ -199,6 +199,7 @@ Funcionalidade: Cadastro de lembrete
 ---
 
 ## 2 - Lembretes recorrentes
+
 ```gherkin
 # language: pt
 Funcionalidade: Lembretes recorrentes
@@ -355,6 +356,7 @@ Funcionalidade: Listagem de lembretes futuros
 ---
 
 ## 4 - Edição de lembrete
+
 ```gherkin
 # language: pt
 Funcionalidade: Edição de lembrete
@@ -472,6 +474,7 @@ Funcionalidade: Edição de lembrete
 ---
 
 ## 5 - Exclusão de lembrete
+
 ```gherkin
 # language: pt
 Funcionalidade: Exclusão de lembrete
@@ -545,6 +548,7 @@ Funcionalidade: Exclusão de lembrete
 ---
 
 ## 6 - Alerta no horário marcado
+
 ```gherkin
 # language: pt
 Funcionalidade: Alerta no horário marcado
@@ -665,6 +669,7 @@ Funcionalidade: Alerta no horário marcado
 ---
 
 ## 7 - Marcar como visto
+
 ```gherkin
 # language: pt
 Funcionalidade: Marcar lembrete como visto
@@ -747,6 +752,7 @@ Funcionalidade: Marcar lembrete como visto
 ---
 
 ## 8 - Adiar lembrete
+
 ```gherkin
 # language: pt
 Funcionalidade: Adiar lembrete
@@ -859,6 +865,7 @@ Funcionalidade: Adiar lembrete
 ---
 
 ## 9 - Histórico de concluídos
+
 ```gherkin
 # language: pt
 Funcionalidade: Histórico de concluídos
@@ -928,6 +935,7 @@ Funcionalidade: Histórico de concluídos
 ---
 
 ## 10 - Persistência e armazenamento
+
 ```gherkin
 # language: pt
 Funcionalidade: Persistência dos dados no navegador
@@ -1020,6 +1028,7 @@ Funcionalidade: Persistência dos dados no navegador
 ---
 
 ## 11 - Relógio e atualização automática da tela
+
 ```gherkin
 # language: pt
 Funcionalidade: Relógio e atualização automática
@@ -1058,6 +1067,7 @@ Funcionalidade: Relógio e atualização automática
 ---
 
 ## 12 - Layout, responsividade e acessibilidade
+
 ```gherkin
 # language: pt
 Funcionalidade: Layout, responsividade e acessibilidade
@@ -1066,7 +1076,7 @@ Funcionalidade: Layout, responsividade e acessibilidade
   Para gerenciar meus lembretes em qualquer dispositivo
 
   @CT-103
- Cenário: Layout nos principais tamanhos de tela
+  Cenário: Layout nos principais tamanhos de tela
     Dado que acesso a aplicação Brasa Lembretes
     E que o viewport tem <largura> px de largura
     Quando visualizo a lista com ao menos 3 lembretes
@@ -1170,6 +1180,120 @@ Funcionalidade: Layout, responsividade e acessibilidade
     Quando acesso a aplicação
     Então o texto é exibido com as fontes alternativas do sistema
     E todas as funcionalidades continuam disponíveis
+```
+
+---
+
+## 13 - Comportamento temporal, fuso e suspensão
+
+```gherkin
+# language: pt
+Funcionalidade: Comportamento sob alterações de tempo e energia
+  Como um usuário da aplicação
+  Desejo que meus lembretes disparem no momento correto mesmo sob variações de relógio ou energia
+  Para manter a confiabilidade dos avisos
+
+  @CT-115
+  Cenário: Lembrete agendado através da transição do horário de verão
+    Dado que a aplicação está configurada em uma zona com horário de verão
+    E que agendei um lembrete para as 02:30 no dia em que o relógio adianta em 1 hora à meia-noite
+    Quando o horário do sistema atinge o momento correspondente
+    Então o alerta dispara sem travar a interface
+    E nenhum alerta duplicado é exibido
+
+  @CT-116
+  Cenário: Mudança de fuso horário do dispositivo com lembretes futuros pendentes
+    Dado que acesso a aplicação Brasa Lembretes
+    E que criei um lembrete para "15:00" em um dispositivo no fuso UTC-3
+    Quando o fuso horário do sistema é alterado para UTC-4
+    E recarrego a página
+    Então o horário exibido no cartão reflete a hora correspondente no novo fuso
+    E o alerta é acionado coerentemente com o relógio atualizado do dispositivo
+
+  @CT-119
+  Cenário: Retomada após suspensão ou hibernação do dispositivo
+    Dado que acesso a aplicação Brasa Lembretes
+    E que criei um lembrete agendado para daqui a 10 minutos
+    E o dispositivo entra em modo de suspensão ou hibernação por 30 minutos
+    Quando o dispositivo acorda e a aba volta a ficar ativa
+    Então o alerta do lembrete vencido é exibido imediatamente
+    E o relógio do topo sincroniza com a hora real do sistema operacional
+
+  @CT-120
+  Cenário: Ajuste manual do relógio do sistema para o passado
+    Dado que acesso a aplicação Brasa Lembretes
+    E que existe um lembrete agendado para as 14:00
+    E o relógio do sistema marcava 13:50
+    Quando o usuário altera manualmente o relógio do sistema para 12:00
+    Então o chip de tempo relativo do cartão é recalculado para "em 2 h"
+    E nenhum alerta indevido é disparado prematuramente
+
+# language: pt
+Funcionalidade: Limites de armazenamento e carga
+  Como um usuário com grande volume de lembretes
+  Desejo que a aplicação lide de forma graciosa com o esgotamento de espaço
+  Para não perder meus dados cadastrados nem travar a tela
+
+  @CT-117
+  Cenário: Tratamento de cota do navegador esgotada (localStorage cheio)
+    Dado que acesso a aplicação Brasa Lembretes
+    E que o armazenamento do navegador atingiu o limite de capacidade
+    Quando preencho o formulário e clico em "Salvar lembrete"
+    Então vejo o aviso "Não foi possível salvar: armazenamento local cheio. Exclua lembretes antigos ou limpe o histórico de concluídos."
+    E a tela não apresenta erro não tratado
+    E os lembretes salvos anteriormente permanecem intactos
+
+  @CT-118
+  Cenário: Responsividade da interface com grande volume de lembretes
+    Dado que existem 300 lembretes futuros e 200 concluídos salvos no navegador
+    Quando acesso a aplicação Brasa Lembretes
+    Então a lista é renderizada sem congelar a interface
+    E a rolagem da página permanece fluida
+
+# language: pt
+Funcionalidade: Regras de borda para anos bissextos em recorrências
+  Como um usuário
+  Desejo precisão no agendamento de recorrências em datas variáveis de calendário
+  Para não perder compromissos agendados no final de fevereiro
+
+  @CT-122
+  Cenário: Avanço de lembrete diário em ano bissexto
+    Dado que acesso a aplicação Brasa Lembretes
+    E que o alerta de um lembrete diário agendado para 28 de fevereiro de 2028 (ano bissexto) às 10:00 está aberto
+    Quando clico em "Marcar como visto"
+    Então a próxima ocorrência exibida é "29/02/2028" às 10:00
+    E não o dia primeiro de março
+
+  @CT-123
+  Cenário: Recorrência mensal cadastrada originalmente em 29 de fevereiro
+    Dado que acesso a aplicação Brasa Lembretes
+    E que criei um lembrete mensal em 29 de fevereiro de um ano bissexto
+    Quando o alerta de 29/02 é marcado como visto
+    Então a próxima ocorrência cai em 29 de março
+    Quando o lembrete avança para o ano comum subsequente
+    Então a ocorrência de fevereiro cai em 28 de fevereiro
+
+# language: pt
+Funcionalidade: Resiliência de schema e segurança de entrada
+  Como um usuário
+  Desejo ter meus dados protegidos contra falhas de versão e códigos maliciosos
+  Para usar a ferramenta com segurança e estabilidade
+
+  @CT-121
+  Cenário: Carregamento de dados salvos com propriedades obrigatórias ausentes
+    Dado que acesso a aplicação Brasa Lembretes
+    E que a chave no localStorage contém um lembrete sem as propriedades "type" ou "createdAt"
+    Quando a aplicação é carregada
+    Então o item é normalizado com valores padrão
+    E a lista é exibida sem travar o carregamento dos demais lembretes
+
+  @CT-124
+  Cenário: Sanitização de script (XSS) no campo de descrição
+    Dado que acesso a aplicação Brasa Lembretes
+    Quando crio um lembrete com a descrição "<img src=x onerror=alert('xss')>"
+    Então o cartão e a janela de alerta exibem o texto literal
+    E nenhum código JavaScript é executado
+    E nenhuma janela de alerta indevida é disparada
 ```
 
 ---
