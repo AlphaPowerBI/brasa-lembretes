@@ -19,6 +19,6 @@ Abra o arquivo `index.html` em qualquer navegador moderno. Não há build nem de
 
 ## Publicação
 
-Hospedado na Vercel como site estático: https://brasa-lembretes.vercel.app
+Hospedado na Vercel como site estático: <https://brasa-lembretes.vercel.app>
 
 Cada push na branch `main` publica uma nova versão automaticamente.
