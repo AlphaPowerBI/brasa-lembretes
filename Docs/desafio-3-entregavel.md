@@ -1,9 +1,5 @@
 # Desafio em Grupo #3
 
-## Brasa Lembretes
-
-**Integrantes:** Dennys, Isabella Henriques, Patrick Aguiar, Taís Santos e Yara Rodrigues
-
 ## 1. Técnicas de teste utilizadas
 
 - Partição de equivalência: aplicada aos campos do formulário de novo lembrete.
@@ -46,3 +42,4 @@
 4. todo
 5. todo
 
+**Integrantes:** Dennys, Isabella Henriques, Patrick Aguiar, Taís Santos e Yara Rodrigues
