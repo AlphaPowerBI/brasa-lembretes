@@ -14,7 +14,7 @@
 - [Checklist de casos de teste](./checklist-casos-de-teste.md)
 - [Condições de teste](./Condicoes%20de%20Teste.md)
 - [Relatório de sessão](./Relatorio_de_Sessao.md)
-- Abertura de defeito conforme o padrão da ISO 29119-3 (registrado no processo de testes do grupo)
+- [Registro do defeito conforme a ISO 29119-3](Defeito.md)
 
 
 ## 3. Execução dos testes
@@ -37,7 +37,7 @@
 - **Impacto:** as mensagens não explicam o motivo da rejeição e podem confundir o usuário.
 - **Prioridade / severidade:** baixa.
 - **Rastreabilidade:** identificado durante o [Relatório de Sessão 1](./Relatorio_de_Sessao.md#relat%C3%B3rio-de-sess%C3%A3o-1).
-- **Registro completo e evidência:** [Defeito 01](./Defeito.docx.md).
+- **Registro completo e evidência:** [Defeito 01](./Defeito.md#defeito-01).
 
 
 ## 5. Aprendizados
