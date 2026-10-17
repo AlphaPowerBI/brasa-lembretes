@@ -12,8 +12,8 @@
 - [Casos de teste baseados na ISO 29119-3](./Casos_de_Teste_ISO_29119-3.md)
 - [Casos de teste em formato Gherkin](./Casos%20de%20Teste%20em%20Gherkin.md)
 - [Checklist de casos de teste](./checklist-casos-de-teste.md)
-- [Condições de teste](./Condi%C3%A7%C3%B5es%20de%20Teste.md)
-- Relatório de sessão (material complementar do grupo, quando disponível)
+- [Condições de teste](./Condicoes%20de%20Teste.md)
+- [Relatório de sessão](./Relatorio_de_Sessao.md)
 - Abertura de defeito conforme o padrão da ISO 29119-3 (registrado no processo de testes do grupo)
 
 
@@ -31,7 +31,13 @@
 
 ## 4. Relato de defeitos
 
-[todo]
+### DEF-01 — Mensagem inadequada para data inválida
+
+- **Descrição:** ao informar a data inválida `29/02/2027`, o sistema exibe as mensagens “Precisa ser uma data e hora futura” e “Informe a data e a hora do lembrete”, sem indicar que a data informada não existe.
+- **Impacto:** as mensagens não explicam o motivo da rejeição e podem confundir o usuário.
+- **Prioridade / severidade:** baixa.
+- **Rastreabilidade:** identificado durante o [Relatório de Sessão 1](./Relatorio_de_Sessao.md#relat%C3%B3rio-de-sess%C3%A3o-1).
+- **Registro completo e evidência:** [Defeito 01](./Defeito.docx.md).
 
 
 ## 5. Aprendizados
