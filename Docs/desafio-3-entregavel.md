@@ -4,19 +4,6 @@
 
 **Integrantes:** Dennys, Isabella Henriques, Patrick Aguiar, Taís Santos e Yara Rodrigues
 
-### Visão geral da aplicação
-
-| Item | Descrição |
-| --- | --- |
-| Nome da aplicação | Brasa Lembretes |
-| Objetivo | Aplicação web para criação e gestão de lembretes com data e hora. Quando chega o momento agendado, a interface exibe um alerta com som e oferece opções de marcar como visto ou adiar. |
-| IA utilizada | To Do |
-| Stack gerada | HTML, CSS e JavaScript puros, em um único arquivo `index.html`. |
-| Como executar | Basta abrir o arquivo `index.html` em um navegador moderno. Para que o som do alerta funcione corretamente, é necessário interagir com a página antes do disparo do lembrete. |
-| Funcionalidades principais | Criar lembrete, editar lembrete, excluir lembrete, visualizar lembretes próximos, carregar exemplos e manter histórico de itens concluídos. |
-
----
-
 ## 1. Técnicas de teste utilizadas
 
 - Partição de equivalência: aplicada aos campos do formulário de novo lembrete.
