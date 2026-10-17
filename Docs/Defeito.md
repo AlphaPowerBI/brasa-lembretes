@@ -1,6 +1,8 @@
 **Defeito**  
 Baseado na ISO-29119-3 e em ferramentas de gestão de defeitos. 
 
+## Defeito 01
+
 | ID | 01 |
 | :---- | :---- |
 | **Título** | O sistema mostra a mensagem de erro ‘Precisa ser uma data e hora futura’ ‘Informe a data e a hora do lembrete’ ao colocar a data inválida 29/02/2027 |
@@ -16,3 +18,6 @@ Baseado na ISO-29119-3 e em ferramentas de gestão de defeitos.
 | **Status** | To Do |
 
 ![Evidência do defeito 01](./img/Brasa-Lembretes-10-17-2026_07_23_PM.png)
+
+---
+Defeito 02
