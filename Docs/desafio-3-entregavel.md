@@ -10,7 +10,6 @@
 - Análise de valor limite: aplicada às validações de data, hora e campos obrigatórios.
 - Teste exploratório baseado em sessão: realizado com foco em cenários CRUD e heurísticas de validação funcional.
 
----
 
 ## 2. Artefatos utilizados
 
@@ -21,7 +20,6 @@
 - Relatório de sessão (material complementar do grupo, quando disponível)
 - Abertura de defeito conforme o padrão da ISO 29119-3 (registrado no processo de testes do grupo)
 
----
 
 ## 3. Execução dos testes
 
@@ -34,13 +32,11 @@
 | Bloqueados / não executados | [N] |
 | Defeitos encontrados | [N] |
 
----
 
 ## 4. Relato de defeitos
 
 [todo]
 
----
 
 ## 5. Aprendizados
 
