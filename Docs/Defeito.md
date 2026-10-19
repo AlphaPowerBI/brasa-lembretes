@@ -29,7 +29,7 @@ Baseado na ISO-29119-3 e em ferramentas de gestão de defeitos.
 | **Data e Hora** | 19/10/2026 \- 11:11 |
 | **Resultado Esperado** | Ao exibir 3 lembretes vencidos de horarios diferentes (11:07, 11:08 e 11:09), o primeiro alerta é o de 11:07 e o indicador da fila exibe “1 de 3”. O título da aba exibe “(3) Lembrete agora · Brasa Lembretes”. Ao marcar o primeiro como visto, o próximo alerta exibe “2 de 3” |
 | **Resultado Atual** | O primeiro alerta (“Teste de Fila de Lembretes 1”) é exibido sem nenhum indicador de fila. Ao marcar como visto, o segundo alerta exibe “1 de 2” (a fila é recontada com os lembretes restantes). O terceiro alerta também é exibido sem indicador. A ordem dos alertas (11:07, 11:08, 11:09) está correta |
-| **Evidências** | [Visualizar vídeo da evidência](./Docs/videos/Evidencia BUG Fila.mp4) |
+| **Evidências** | [Visualizar vídeo da evidência](./videos/EvidenciaBUGFila.mp4) |
 | **Prioridade** | Média |
 | **Severidade** | Baixa |
 | **Informações sobre  o Software** | https://brasa-lembretes.vercel.app/ |
@@ -44,6 +44,6 @@ Baseado na ISO-29119-3 e em ferramentas de gestão de defeitos.
 4. Observar o primeiro alerta: o indicador da fila não aparece.
 5. Clicar em “Marcar como visto” e observar o segundo alerta: o indicador mostra “1 de 2”.
 
-[Assistir à evidência do defeito 02](./videos/Evidencia_BUG_Fila.mp4)
+[Assistir à evidência do defeito 02](./videos/EvidenciaBUGFila.mp4)
 
 ---
