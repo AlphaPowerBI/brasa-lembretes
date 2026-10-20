@@ -45,5 +45,3 @@ Inspirado no artigo de John Bach sobre Session-Based Test Management (2001)
 
 1. Quais tratativas de erro temos no sistema?
 
----
-**Relatório de Sessão 2**  
