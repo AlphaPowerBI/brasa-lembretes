@@ -33,7 +33,7 @@ Baseado na ISO-29119-3 e em ferramentas de gestão de defeitos.
 | **Prioridade** | Média |
 | **Severidade** | Baixa |
 | **Informações sobre  o Software** | https://brasa-lembretes.vercel.app/ |
-| **Rastreabilidade** | CT-055 \- [Relatório de Sessão 1](./Relatorio_de_Sessao.md#relat%C3%B3rio-de-sess%C3%A3o-1) |
+| **Rastreabilidade** | [CT-055](./Casos%20de%20Teste%20em%20Gherkin.md#ct-055) |
 | **Status** | To Do |
 
 **Passos para reproduzir**
