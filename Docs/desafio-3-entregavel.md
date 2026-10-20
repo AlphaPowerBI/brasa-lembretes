@@ -26,7 +26,7 @@
 | Passaram | 89 |
 | Falharam | 1 |
 | Bloqueados / não executados | 34 |
-| Defeitos encontrados | 1 |
+| Defeitos encontrados | 2 |
 
 
 ## 4. Relato de defeitos
