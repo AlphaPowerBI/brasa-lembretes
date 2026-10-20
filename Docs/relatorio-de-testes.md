@@ -38,7 +38,6 @@
 - **Prioridade / severidade:** baixa.
 - **Rastreabilidade:** identificado durante o [Relatório de Sessão 1](./Relatorio_de_Sessao.md#relat%C3%B3rio-de-sess%C3%A3o-1).
 - **Registro completo e evidência:** [Defeito 01](./Defeito.md#defeito-01).
-
 ### DEF-02 — Indicador da fila do alerta não acompanha a sequência correta
 
 - **Descrição:** ao disparar três alertas simultâneos, o primeiro alerta não exibe o indicador da fila (esperado “1 de 3”), e ao marcar como visto o primeiro item a contagem reinicia para “1 de 2” em vez de “2 de 3”.

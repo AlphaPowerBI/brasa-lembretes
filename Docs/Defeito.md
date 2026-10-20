@@ -19,7 +19,6 @@ Baseado na ISO-29119-3 e em ferramentas de gestão de defeitos.
 
 ![Evidência do defeito 01](./img/Brasa-Lembretes-10-17-2026_07_23_PM.png)
 
-
 ## Defeito 02
 
 | ID | 02 |
