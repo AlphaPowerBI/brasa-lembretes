@@ -8,6 +8,7 @@ Funcionalidade: Cadastro de lembrete
   Como um usuário do Brasa Lembretes
   Desejo cadastrar lembretes com título, descrição e data/hora
   Para ser avisado na hora certa   
+<a id="ct-001"></a>
 
   @CT-001
   Cenário: Criar lembrete único apenas com os campos obrigatórios
@@ -21,6 +22,7 @@ Funcionalidade: Cadastro de lembrete
     E o lembrete aparece em "Lembretes futuros" com o card "Único"
     E o contador exibe "1 lembrete"
     E o bloco "Próximo lembrete" exibe "Pagar boleto do condomínio"
+<a id="ct-002"></a>
 
   @CT-002
   Cenário: Criar lembrete único com descrição
@@ -32,6 +34,7 @@ Funcionalidade: Cadastro de lembrete
     E clico em "Salvar lembrete"
     Então o cartão do lembrete exibe o título "Reunião com cliente"
     E exibe a descrição "Levar a proposta impressa"
+<a id="ct-003"></a>
 
   @CT-003
   Cenário: Rejeitar título vazio ou composto apenas por espaços
@@ -44,6 +47,7 @@ Funcionalidade: Cadastro de lembrete
     E o campo de título fica marcado como inválido
     E o foco é levado ao campo de título
     E nenhum lembrete é criado
+<a id="ct-004"></a>
 
 
   @CT-004 
@@ -56,6 +60,7 @@ Funcionalidade: Cadastro de lembrete
     Então vejo a mensagem de erro "Informe a data e a hora do lembrete."
     E o campo de data e hora fica marcado como inválido
     E nenhum lembrete é criado
+<a id="ct-005"></a>
 
   @CT-005
   Cenário: Rejeitar data e hora que não estão no futuro
@@ -66,6 +71,7 @@ Funcionalidade: Cadastro de lembrete
     E clico em "Salvar lembrete"
     Então vejo a mensagem de erro "Escolha uma data e hora no futuro."
     E nenhum lembrete é criado
+<a id="ct-006"></a>
     
 
   @CT-006 
@@ -77,6 +83,7 @@ Funcionalidade: Cadastro de lembrete
     E clico em "Salvar lembrete"
     Então o lembrete é criado com sucesso
     E o horário exibido no cartão corresponde ao informado
+<a id="ct-007"></a>
    
 
   @CT-007
@@ -88,6 +95,7 @@ Funcionalidade: Cadastro de lembrete
     Então vejo a mensagem "Informe um título para o lembrete."
     E vejo a mensagem "Informe a data e a hora do lembrete."
     E o foco é levado ao primeiro campo inválido, o título
+<a id="ct-008"></a>
 
   @CT-008 
   Cenário: Limite de caracteres do título (máximo 80)
@@ -96,6 +104,7 @@ Funcionalidade: Cadastro de lembrete
     E digito um título com <digitados> caracteres
     Então o contador do título exibe "<contador>/80"
     E o campo contém <aceitos> caracteres
+<a id="ct-009"></a>
 
 
   @CT-009 
@@ -105,6 +114,7 @@ Funcionalidade: Cadastro de lembrete
     E digito uma descrição com <digitados> caracteres
     Então o contador da descrição exibe "<contador>/500"
     E o campo contém <aceitos> caracteres
+<a id="ct-010"></a>
 
 
   @CT-010 
@@ -114,6 +124,7 @@ Funcionalidade: Cadastro de lembrete
     E colo no campo de título um texto com 120 caracteres
     Então o campo de título mantém apenas os primeiros 80 caracteres
     E o contador exibe "80/80"
+<a id="ct-011"></a>
 
   @CT-011 
   Cenário: Descrição composta apenas por espaços é tratada como vazia
@@ -124,6 +135,7 @@ Funcionalidade: Cadastro de lembrete
     E informo uma data e hora futura
     E clico em "Salvar lembrete"
     Então o cartão do lembrete não exibe parágrafo de descrição
+<a id="ct-012"></a>
 
   @CT-012 
   Cenário: Espaços nas extremidades do título são removidos
@@ -133,6 +145,7 @@ Funcionalidade: Cadastro de lembrete
     E informo uma data e hora futura
     E clico em "Salvar lembrete"
     Então o cartão exibe o título "Ligar para o banco" sem espaços nas pontas
+<a id="ct-013"></a>
 
   @CT-013
   Esquema do Cenário: Caracteres especiais e HTML são exibidos como texto
@@ -144,6 +157,7 @@ Funcionalidade: Cadastro de lembrete
     Então o cartão exibe exatamente o texto "<titulo>"
     E nenhum código HTML ou script é executado
     E nenhuma janela de alerta do navegador é aberta
+<a id="ct-014"></a>
  
   @CT-014
   Cenário: Emojis e acentuação são preservados
@@ -153,6 +167,7 @@ Funcionalidade: Cadastro de lembrete
     E informo uma data e hora futura
     E clico em "Salvar lembrete"
     Então o cartão exibe "Aniversário da vovó 🎂" corretamente
+<a id="ct-015"></a>
 
   @CT-015
   Cenário: Quebras de linha da descrição são preservadas
@@ -163,6 +178,7 @@ Funcionalidade: Cadastro de lembrete
     E informo uma data e hora futura
     E clico em "Salvar lembrete"
     Então o cartão exibe a descrição em três linhas
+<a id="ct-016"></a>
 
   @CT-016
   Cenário: Título longo sem espaços não quebra o layout
@@ -170,6 +186,7 @@ Funcionalidade: Cadastro de lembrete
     Quando crio um lembrete com título de 80 letras "A" sem espaços
     Então o texto quebra dentro do cartão
     E a página não apresenta rolagem horizontal
+<a id="ct-017"></a>
 
   @CT-017
   Cenário: Fechar o formulário sem salvar
@@ -178,6 +195,7 @@ Funcionalidade: Cadastro de lembrete
     Quando Fechar o formulário sem salvar
     Então o formulário é fechado
     E nenhum lembrete é criado
+<a id="ct-018"></a>
 
   @CT-018 
   Cenário: Formulário reaberto não mantém dados nem erros anteriores
@@ -187,6 +205,7 @@ Funcionalidade: Cadastro de lembrete
     Então todos os campos estão vazios
     E nenhuma mensagem de erro é exibida
     E os contadores exibem "0/80" e "0/500"
+<a id="ct-019"></a>
 
   @CT-019 
   Cenário: Salvar o formulário pressionando Enter no campo de título     
@@ -206,6 +225,7 @@ Funcionalidade: Lembretes recorrentes
   Como um usuário
   Desejo criar lembretes que se repetem
   Para não precisar recadastrar atividades periódicas
+<a id="ct-020"></a>
    
 
   @CT-020
@@ -219,6 +239,7 @@ Funcionalidade: Lembretes recorrentes
     Então o campo "Frequência" é exibido com o valor "Todos os dias"
     Quando seleciono "Único"
     Então o campo "Frequência" volta a ficar oculto
+<a id="ct-021"></a>
 
   @CT-021
   Esquema do Cenário: Criar lembrete recorrente em cada frequência
@@ -237,6 +258,7 @@ Funcionalidade: Lembretes recorrentes
       | diário     | Todos os dias | Diário  |
       | semanal    | Toda semana   | Semanal |
       | mensal     | Todo mês      | Mensal  |
+<a id="ct-022"></a>
 
   @CT-022
   Cenário: Lembrete recorrente aparece uma única vez na lista de futuros
@@ -255,6 +277,7 @@ Funcionalidade: Listagem de lembretes futuros
   Como um usuário
   Desejo ver meus lembretes ordenados e agrupados por dia
   Para saber o que vem pela frente    
+<a id="ct-023"></a>
 
   @CT-023 
   Cenário: Estado vazio na primeira visita
@@ -265,6 +288,7 @@ Funcionalidade: Listagem de lembretes futuros
     E o bloco "Próximo lembrete" está oculto
     E o contador de lembretes está vazio
     E a seção "Concluídos" está oculta
+<a id="ct-024"></a>
 
   @CT-024
   Cenário: Botão "Criar primeiro lembrete" abre o formulário
@@ -272,6 +296,7 @@ Funcionalidade: Listagem de lembretes futuros
     E não existem lembretes salvos
     Quando clico em "Criar primeiro lembrete"
     Então o formulário "Novo lembrete" é exibido
+<a id="ct-025"></a>
 
   @CT-025
   Cenário: Carregar exemplos
@@ -282,6 +307,7 @@ Funcionalidade: Listagem de lembretes futuros
     E vejo os lembretes "(exemplo) Tomar água", "(exemplo) Reunião semanal do time" e "(exemplo) Pagar aluguel"
     E o estado vazio deixa de ser exibido
     E "(exemplo) Tomar água" é único, "(exemplo) Reunião semanal do time" é semanal e "(exemplo) Pagar aluguel" é mensal
+<a id="ct-026"></a>
 
   @CT-026 
   Cenário: Ordenação do mais próximo para o mais distante
@@ -292,6 +318,7 @@ Funcionalidade: Listagem de lembretes futuros
       | B      | daqui a 2 dias |
     Então a lista exibe os lembretes na ordem A, B, C
     E o bloco "Próximo lembrete" exibe "A"
+<a id="ct-027"></a>
 
   @CT-027 
   Cenário: Agrupamento por dia com rótulos "Hoje" e "Amanhã"
@@ -300,12 +327,14 @@ Funcionalidade: Listagem de lembretes futuros
     E o primeiro grupo tem o rótulo "Hoje" seguido da data por extenso
     E o segundo grupo tem o rótulo "Amanhã" seguido da data por extenso
     E o terceiro grupo exibe apenas o dia da semana e a data por extenso
+<a id="ct-028"></a>
 
   @CT-028
   Cenário: Lembretes no mesmo dia ficam no mesmo grupo, ordenados por horário
     Dado que existem lembretes amanhã às 15:00, 09:00 e 12:30
     Então há um único grupo "Amanhã"
     E os cartões aparecem na ordem 09:00, 12:30, 15:00
+<a id="ct-029"></a>
 
   @CT-029 
   enário: Lembretes em lados opostos da meia-noite ficam em grupos diferentes
@@ -315,6 +344,7 @@ Funcionalidade: Listagem de lembretes futuros
     Exemplos:
       | horario_1 | horario_2 |
       | 00:00     | 23:59     |
+<a id="ct-030"></a>
 
   @CT-030
   Cenário: Contador no singular e no plural
@@ -326,6 +356,7 @@ Funcionalidade: Listagem de lembretes futuros
       | 1          | 1 lembrete    |
       | 2          | 2 lembretes   |
       | 10         | 10 lembretes  |
+<a id="ct-031"></a>
 
   @CT-031 
   Cenário: Texto de tempo relativo no cartão
@@ -341,11 +372,13 @@ Funcionalidade: Listagem de lembretes futuros
       | daqui a 2 horas e 15 min | em 2 h 15 min       |
       | daqui a 3 dias           | em 3 d              |
       | daqui a 1 dia e 4 horas  | em 1 d 4 h          |
+<a id="ct-032"></a>
 
   @CT-032
   Cenário: Lembrete futuro não exibe alerta
     Dado que existe um lembrete agendado para daqui a 1 hora
     Então nenhum alerta "Chegou a hora" é exibido
+<a id="ct-033"></a>
 
   @CT-033 
   Cenário: Cartão exibe o horário no formato 24 horas
@@ -363,6 +396,7 @@ Funcionalidade: Edição de lembrete
   Como um usuário
   Desejo alterar um lembrete já cadastrado
   Para corrigir ou atualizar informações
+<a id="ct-034"></a>
 
   @CT-034
   Cenário: Abrir a edição com os dados preenchidos
@@ -376,6 +410,7 @@ Funcionalidade: Edição de lembrete
     E a opção "Único" está selecionada
     E a data e hora contêm o valor agendado
     E os contadores refletem o tamanho dos textos
+<a id="ct-035"></a>
 
   @CT-035
   Cenário: Alterar o título de um lembrete
@@ -387,6 +422,7 @@ Funcionalidade: Edição de lembrete
     Então vejo o aviso "Lembrete atualizado"
     E o cartão exibe "Dentista - retorno"
     E continua existindo apenas 1 cartão
+<a id="ct-036"></a>
 
   @CT-036
   Cenário: Alterar data e hora reordena a lista
@@ -396,6 +432,7 @@ Funcionalidade: Edição de lembrete
     Quando edito "Dentista" para daqui a 12 horas
     Então "Dentista" passa a aparecer antes de "Mercado"
     E o bloco "Próximo lembrete" exibe "Dentista"
+<a id="ct-037"></a>
 
   @CT-037
   Cenário: Converter lembrete único em recorrente
@@ -406,6 +443,7 @@ Funcionalidade: Edição de lembrete
     E escolho a frequência "Toda semana"
     E clico em "Salvar alterações"
     Então o cartão exibe o chip "Recorrente · Semanal"
+<a id="ct-038"></a>
 
   @CT-038
   Cenário: Converter lembrete recorrente em único
@@ -417,6 +455,7 @@ Funcionalidade: Edição de lembrete
     Quando seleciono "Único"
     E clico em "Salvar alterações"
     Então o cartão exibe o chip "Único"
+<a id="ct-039"></a>
 
   @CT-039
   Cenário: Validações também valem na edição
@@ -433,6 +472,7 @@ Funcionalidade: Edição de lembrete
       | o título       | vazio          | Informe um título para o lembrete.    |
       | a data e hora  | vazia          | Informe a data e a hora do lembrete.  |
       | a data e hora  | 1 hora atrás   | Escolha uma data e hora no futuro.    |
+<a id="ct-040"></a>
 
   @CT-040
   Cenário: Cancelar a edição descarta as alterações
@@ -442,6 +482,7 @@ Funcionalidade: Edição de lembrete
     E altero o título para "Outro título"
     E clico em "Cancelar"
     Então o cartão continua exibindo "Dentista"
+<a id="ct-041"></a>
 
   @CT-041
   Cenário: Abrir "Novo lembrete" depois de cancelar uma edição não traz dados do lembrete editado
@@ -452,6 +493,7 @@ Funcionalidade: Edição de lembrete
     Então o título do formulário é "Novo lembrete"
     E todos os campos estão vazios
     E, ao salvar, é criado um novo lembrete e "Dentista" não é alterado
+<a id="ct-042"></a>
 
   @CT-042
   Cenário: Editar um lembrete que já foi adiado
@@ -461,6 +503,7 @@ Funcionalidade: Edição de lembrete
     Quando edito o título e salvo
     Então o cartão mantém ou zera o contador de adiamentos de forma coerente
     # Observação: o código não zera "snoozes" na edição. Avaliar se o comportamento é o desejado.
+<a id="ct-043"></a>
 
   @CT-043
   Cenário: Editar a data de um lembrete mensal criado no dia 31
@@ -481,6 +524,7 @@ Funcionalidade: Exclusão de lembrete
   Como um usuário
   Desejo excluir lembretes que não preciso mais
   Para manter minha lista organizada
+<a id="ct-044"></a>
 
   @CT-044
   Cenário: Excluir lembrete com confirmação
@@ -492,6 +536,7 @@ Funcionalidade: Exclusão de lembrete
     Então vejo o aviso "Lembrete excluído"
     E "Dentista" não aparece mais na lista
     E "Mercado" continua na lista
+<a id="ct-045"></a>
 
   @CT-045
   Cenário: Cancelar a exclusão
@@ -501,6 +546,7 @@ Funcionalidade: Exclusão de lembrete
     E clico em "Cancelar" na confirmação
     Então o cartão volta a exibir os botões "Editar" e "Excluir"
     E "Dentista" continua na lista
+<a id="ct-046"></a>
 
   @CT-046
   Cenário: Apenas uma confirmação de exclusão fica aberta por vez
@@ -510,6 +556,7 @@ Funcionalidade: Exclusão de lembrete
     E clico em "Excluir" no cartão "Mercado"
     Então apenas o cartão "Mercado" exibe a pergunta de confirmação
     E o cartão "Dentista" volta ao estado normal
+<a id="ct-047"></a>
 
   @CT-047
   Cenário: Excluir o último lembrete exibe o estado vazio
@@ -519,6 +566,7 @@ Funcionalidade: Exclusão de lembrete
     Quando excluo "Dentista" confirmando
     Então vejo "Nenhum lembrete agendado"
     E o bloco "Próximo lembrete" fica oculto
+<a id="ct-048"></a>
 
   @CT-048
   Cenário: A exclusão persiste após recarregar a página
@@ -527,6 +575,7 @@ Funcionalidade: Exclusão de lembrete
     Quando excluo "Dentista" confirmando
     E recarrego a página
     Então "Dentista" não aparece na lista
+<a id="ct-049"></a>
 
   @CT-049
   Cenário: Excluir lembrete recorrente remove todas as ocorrências futuras
@@ -535,6 +584,7 @@ Funcionalidade: Exclusão de lembrete
     Quando excluo "Beber água" confirmando
     Então "Beber água" não aparece na lista
     E não é exibido alerta no horário original
+<a id="ct-050"></a>
 
   @CT-050
   Cenário: Excluir um lembrete não altera o histórico de concluídos
@@ -555,6 +605,7 @@ Funcionalidade: Alerta no horário marcado
   Como um usuário
   Desejo ser avisado quando chegar a hora do lembrete
   Para não esquecer a atividade
+<a id="ct-051"></a>
 
   @CT-051
   Cenário: Alerta é exibido na data e hora marcadas
@@ -568,18 +619,21 @@ Funcionalidade: Alerta no horário marcado
     E exibe o chip "Único"
     E o título da aba do navegador passa a ser "(1) Lembrete agora · Brasa Lembretes"
     E o foco é posicionado no botão "Marcar como visto"
+<a id="ct-052"></a>
 
   @CT-052
   Cenário: Alerta sem descrição não exibe o parágrafo de descrição
     Dado que acesso a aplicação Brasa Lembretes
     E que existe um lembrete sem descrição cujo horário chegou
     Então o alerta é exibido sem o campo de descrição
+<a id="ct-053"></a>
 
   @CT-053
   Cenário: Alerta de lembrete recorrente exibe o chip da frequência
     Dado que acesso a aplicação Brasa Lembretes
     E que existe um lembrete semanal cujo horário chegou
     Então o alerta exibe o chip "Recorrente · Semanal"
+<a id="ct-054"></a>
 
   @CT-054
   Cenário: Lembrete em alerta sai da lista de futuros
@@ -588,6 +642,7 @@ Funcionalidade: Alerta no horário marcado
     Quando o alerta de "A" é exibido
     Então a lista de futuros mostra apenas "B"
     E o contador exibe "1 lembrete"
+<a id="ct-055"></a>
 
   @CT-055
   Cenário: Vários lembretes vencidos entram em fila, do mais antigo ao mais recente
@@ -597,6 +652,7 @@ Funcionalidade: Alerta no horário marcado
     Então o primeiro alerta é o de 10:00
     E o indicador da fila exibe "1 de 3"
     E o título da aba exibe "(3) Lembrete agora · Brasa Lembretes"
+<a id="ct-056"></a>
 
   @CT-056
   Cenário: Ao tratar um alerta da fila o próximo é exibido em seguida
@@ -608,6 +664,7 @@ Funcionalidade: Alerta no horário marcado
     Quando clico em "Marcar como visto" no segundo
     Então a janela de alerta é fechada
     E o título da aba volta a ser "Brasa Lembretes"
+<a id="ct-057"></a>
 
   @CT-057
   Cenário: Lembrete vencido enquanto a página estava fechada
@@ -616,6 +673,7 @@ Funcionalidade: Alerta no horário marcado
     E fechei a aba do navegador
     Quando reabro a aplicação depois do horário agendado
     Então o alerta do lembrete é exibido assim que a página carrega
+<a id="ct-058"></a>
 
   @CT-058
   Cenário: O alerta não é fechado pela tecla Esc nem pelo clique fora
@@ -624,6 +682,7 @@ Funcionalidade: Alerta no horário marcado
     Quando pressiono Esc
     E clico na área escura fora da janela
     Então o alerta continua aberto
+<a id="ct-059"></a>
 
   @CT-059
   Cenário: Alerta dispara com o formulário aberto
@@ -633,6 +692,7 @@ Funcionalidade: Alerta no horário marcado
     Então o formulário é fechado e o alerta é exibido
     E os dados digitados no formulário são perdidos
     # Observação: avaliar se perder o rascunho é aceitável do ponto de vista do usuário.
+<a id="ct-060"></a>
 
   @CT-060
   Cenário: Alerta com título e descrição longos permanece legível no celular
@@ -641,6 +701,7 @@ Funcionalidade: Alerta no horário marcado
     E existe um lembrete vencido com título de 80 caracteres e descrição de 500 caracteres
     Então o alerta aparece como janela inferior (bottom sheet)
     E o conteúdo rola dentro da janela sem cortar os botões de ação
+<a id="ct-061"></a>
 
   @CT-061
   Cenário: Som do alerta após interação do usuário
@@ -648,6 +709,7 @@ Funcionalidade: Alerta no horário marcado
     E que já cliquei ou toquei em algum ponto da página
     Quando um alerta é exibido
     Então é emitido um sinal sonoro de dois bipes
+<a id="ct-062"></a>
 
   @CT-062
   Cenário: Sem interação prévia o alerta funciona sem som
@@ -656,6 +718,7 @@ Funcionalidade: Alerta no horário marcado
     Quando um alerta é exibido
     Então a janela de alerta aparece normalmente
     E nenhum erro é exibido ao usuário
+<a id="ct-063"></a>
 
   @CT-063
   Cenário: Alerta aparece mesmo com a aba em segundo plano
@@ -676,6 +739,7 @@ Funcionalidade: Marcar lembrete como visto
   Como um usuário
   Desejo marcar o alerta como visto
   Para concluir o lembrete ou avançar para a próxima ocorrência
+<a id="ct-064"></a>
 
   @CT-064
   Cenário: Marcar lembrete único como visto
@@ -687,6 +751,7 @@ Funcionalidade: Marcar lembrete como visto
     E "Tomar remédio" não aparece em "Lembretes futuros"
     E a seção "Concluídos (1)" passa a existir
     E "Tomar remédio" aparece na lista de concluídos com a data e hora da conclusão
+<a id="ct-065"></a>
 
   @CT-065
   Cenário: Lembrete recorrente avança para a próxima ocorrência
@@ -705,6 +770,7 @@ Funcionalidade: Marcar lembrete como visto
       | semanal    | 28/12/2026 | 04/01/2027   | virada de ano          |
       | mensal     | 15/10/2026 | 15/11/2026   | caso comum             |
       | mensal     | 15/12/2026 | 15/01/2027   | virada de ano          |
+<a id="ct-066"></a>
 
   @CT-066
   Cenário: Lembrete mensal criado em dia que não existe no mês seguinte
@@ -723,6 +789,7 @@ Funcionalidade: Marcar lembrete como visto
       | 30         | 30/01/2027 | 28/02/2027   | 30/03/2027 | dia 30 em fevereiro              |
       | 29         | 29/01/2027 | 28/02/2027   | 29/03/2027 | dia 29 em fevereiro de ano comum |
       | 29         | 29/01/2028 | 29/02/2028   | 29/03/2028 | dia 29 em ano bissexto           |
+<a id="ct-067"></a>
 
   @CT-067
   Cenário: Lembrete recorrente muito atrasado pula direto para a próxima data futura
@@ -732,6 +799,7 @@ Funcionalidade: Marcar lembrete como visto
     Quando clico em "Marcar como visto"
     Então a próxima ocorrência exibida está no futuro
     E nenhum alerta é reaberto para as ocorrências perdidas
+<a id="ct-068"></a>
 
   @CT-068
   Cenário: Marcar como visto não gera novo alerta imediato para recorrente
@@ -740,6 +808,7 @@ Funcionalidade: Marcar lembrete como visto
     Quando clico em "Marcar como visto"
     Então a janela de alerta é fechada
     E nenhum novo alerta é exibido nos próximos segundos
+<a id="ct-069"></a>
 
   @CT-069
   Cenário: Recorrente continua gerando alertas nas ocorrências seguintes
@@ -759,6 +828,7 @@ Funcionalidade: Adiar lembrete
   Como um usuário
   Desejo adiar um alerta
   Para ser lembrado novamente em outro momento
+<a id="ct-070"></a>
 
   @CT-070
   Cenário: Adiar usando as opções rápidas
@@ -775,6 +845,7 @@ Funcionalidade: Adiar lembrete
       | +10 min        | agora + 10 minutos (segundos zerados) |
       | +1 hora        | agora + 60 minutos (segundos zerados) |
       | Amanhã às 9h   | amanhã às 09:00                     |
+<a id="ct-071"></a>
 
   @CT-071
   Cenário: Adiar para data e hora personalizadas
@@ -784,6 +855,7 @@ Funcionalidade: Adiar lembrete
     E clico em "Adiar"
     Então vejo o aviso "Adiado para" com o horário informado
     E o lembrete volta à lista nesse horário
+<a id="ct-072"></a>
 
   @CT-072
   Cenário: Adiar sem informar data e hora
@@ -793,6 +865,7 @@ Funcionalidade: Adiar lembrete
     E clico em "Adiar"
     Então vejo a mensagem "Escolha a nova data e hora."
     E o alerta continua aberto
+<a id="ct-073"></a>
 
   @CT-073
   Cenário: Adiar para uma data que não está no futuro
@@ -808,6 +881,7 @@ Funcionalidade: Adiar lembrete
       | 1 dia atrás              |
       | 1 minuto atrás           |
       | o minuto atual           |
+<a id="ct-074"></a>
 
   @CT-074
   Cenário: Adiar para o próximo minuto é aceito
@@ -816,6 +890,7 @@ Funcionalidade: Adiar lembrete
     Quando informo em "Outra data e hora" o próximo minuto
     E clico em "Adiar"
     Então o lembrete é adiado com sucesso
+<a id="ct-075"></a>
 
   @CT-075
   Cenário: A mensagem de erro do adiamento é limpa no alerta seguinte
@@ -824,6 +899,7 @@ Funcionalidade: Adiar lembrete
     Quando adio o lembrete com "+10 min"
     E existe outro alerta na fila
     Então o novo alerta não exibe mensagem de erro
+<a id="ct-076"></a>
 
   @CT-076
   Cenário: O alerta volta a ser exibido quando o novo horário chega
@@ -831,12 +907,14 @@ Funcionalidade: Adiar lembrete
     E que adiei o lembrete para daqui a 1 minuto (ou ajustei o horário via localStorage)
     Quando o novo horário chega
     Então o alerta "Chegou a hora" é exibido novamente para "Ligar para o João"
+<a id="ct-077"></a>
 
   @CT-077
   Cenário: O contador de adiamentos acumula
     Dado que acesso a aplicação Brasa Lembretes
     E que o lembrete foi adiado 2 vezes
     Então o cartão exibe o chip "Adiado 2x"
+<a id="ct-078"></a>
 
   @CT-078
   Cenário: Adiar um lembrete recorrente mantém a recorrência
@@ -846,6 +924,7 @@ Funcionalidade: Adiar lembrete
     E o novo alerta é exibido e clico em "Marcar como visto"
     Então a próxima ocorrência é a segunda-feira seguinte às 09:00
     E não uma semana a partir do horário adiado
+<a id="ct-079"></a>
 
   @CT-079
   Cenário: Adiar um alerta da fila exibe o próximo
@@ -854,6 +933,7 @@ Funcionalidade: Adiar lembrete
     Quando adio o primeiro com "+10 min"
     Então o segundo alerta é exibido
     E o primeiro aparece em "Lembretes futuros"
+<a id="ct-080"></a>
 
   @CT-080
   Cenário: Adiar para "Amanhã às 9h" mostra o rótulo "Amanhã" no agrupamento
@@ -872,12 +952,14 @@ Funcionalidade: Histórico de concluídos
   Como um usuário
   Desejo consultar e limpar os lembretes concluídos
   Para acompanhar o que já foi visto
+<a id="ct-081"></a>
 
   @CT-081
   Cenário: Seção de concluídos fica oculta quando não há concluídos
     Dado que acesso a aplicação Brasa Lembretes
     E que não há lembretes concluídos
     Então a seção "Concluídos" não é exibida
+<a id="ct-082"></a>
 
   @CT-082
   Cenário: Seção de concluídos exibe a quantidade
@@ -886,6 +968,7 @@ Funcionalidade: Histórico de concluídos
     Então a seção exibe "Concluídos (3)"
     Quando expando a seção
     Então vejo os 3 lembretes com o título riscado e a data e hora da conclusão
+<a id="ct-083"></a>
 
   @CT-083
   Cenário: Concluídos ordenados do mais recente para o mais antigo
@@ -893,12 +976,14 @@ Funcionalidade: Histórico de concluídos
     E que marquei "A" como visto às 10:00 e "B" às 10:05
     Quando expando "Concluídos"
     Então "B" aparece antes de "A"
+<a id="ct-084"></a>
 
   @CT-084
   Cenário: Lembrete recorrente visto não vai para o histórico
     Dado que acesso a aplicação Brasa Lembretes
     E que marquei como visto um lembrete diário
     Então "Concluídos" não contabiliza esse lembrete
+<a id="ct-085"></a>
 
   @CT-085
   Cenário: Limpar concluídos
@@ -908,6 +993,7 @@ Funcionalidade: Histórico de concluídos
     Então vejo o aviso "Concluídos removidos"
     E a seção "Concluídos" desaparece
     E o lembrete futuro permanece na lista
+<a id="ct-086"></a>
 
   @CT-086
   Cenário: Limpar concluídos não pede confirmação
@@ -916,6 +1002,7 @@ Funcionalidade: Histórico de concluídos
     Quando clico em "Limpar concluídos"
     Então os lembretes são removidos imediatamente
     # Observação: diferente da exclusão individual, não há confirmação. Avaliar impacto na usabilidade.
+<a id="ct-087"></a>
 
   @CT-087
   Cenário: Histórico persiste após recarregar a página
@@ -923,6 +1010,7 @@ Funcionalidade: Histórico de concluídos
     E que existe 1 lembrete concluído
     Quando recarrego a página
     Então a seção exibe "Concluídos (1)"
+<a id="ct-088"></a>
 
   @CT-088
   Cenário: Título com HTML no histórico é exibido como texto
@@ -942,6 +1030,7 @@ Funcionalidade: Persistência dos dados no navegador
   Como um usuário
   Desejo que meus lembretes sejam mantidos
   Para encontrá-los quando voltar à aplicação
+<a id="ct-089"></a>
 
   @CT-089
   Cenário: Lembretes persistem após recarregar a página
@@ -949,6 +1038,7 @@ Funcionalidade: Persistência dos dados no navegador
     E que criei os lembretes "A" e "B"
     Quando recarrego a página
     Então "A" e "B" continuam na lista com os mesmos dados
+<a id="ct-090"></a>
 
   @CT-090
   Cenário: Lembretes persistem após fechar e reabrir o navegador
@@ -957,6 +1047,7 @@ Funcionalidade: Persistência dos dados no navegador
     Quando fecho o navegador e o abro novamente
     E acesso a aplicação
     Então "A" continua na lista
+<a id="ct-091"></a>
 
   @CT-091
   Cenário: Edição, exclusão e conclusão são persistidas
@@ -966,6 +1057,7 @@ Funcionalidade: Persistência dos dados no navegador
     Então "A" exibe os dados editados
     E "B" não existe
     E "C" está em "Concluídos"
+<a id="ct-092"></a>
 
   @CT-092
   Cenário: Dados são isolados por navegador
@@ -973,6 +1065,7 @@ Funcionalidade: Persistência dos dados no navegador
     E que criei o lembrete "A" no navegador 1
     Quando acesso a aplicação no navegador 2
     Então "A" não aparece
+<a id="ct-093"></a>
 
   @CT-093
   Cenário: Dados corrompidos no armazenamento
@@ -982,6 +1075,7 @@ Funcionalidade: Persistência dos dados no navegador
     Então vejo o aviso "Não foi possível usar o armazenamento do navegador"
     E a aplicação carrega com a lista vazia
     E é possível criar novos lembretes
+<a id="ct-094"></a>
 
   @CT-094
   Cenário: Valor salvo que não é uma lista
@@ -990,6 +1084,7 @@ Funcionalidade: Persistência dos dados no navegador
     Quando acesso a aplicação
     Então a aplicação carrega com a lista vazia
     E não apresenta erro na tela
+<a id="ct-095"></a>
 
   @CT-095
   Cenário: Armazenamento do navegador indisponível ou bloqueado
@@ -1000,6 +1095,7 @@ Funcionalidade: Persistência dos dados no navegador
     E o lembrete aparece na lista durante a sessão
     Quando recarrego a página
     Então o lembrete deixa de existir
+<a id="ct-096"></a>
 
   @CT-096
   Cenário: Sincronização entre abas abertas
@@ -1007,6 +1103,7 @@ Funcionalidade: Persistência dos dados no navegador
     E que a aplicação está aberta em duas abas do mesmo navegador
     Quando crio o lembrete "A" na aba 1
     Então "A" aparece na aba 2 sem recarregar
+<a id="ct-097"></a>
 
   @CT-097
   Cenário: Alerta ao tratar o mesmo lembrete em duas abas
@@ -1016,6 +1113,7 @@ Funcionalidade: Persistência dos dados no navegador
     Quando o horário chega e marco como visto na aba 1
     Então a aba 2 não exibe um alerta duplicado e permanece consistente
     # Observação: as duas abas disparam o alerta; verificar o estado final após tratar em ambas.
+<a id="ct-098"></a>
 
   @CT-098
   Cenário: Modo de navegação anônima
@@ -1035,12 +1133,14 @@ Funcionalidade: Relógio e atualização automática
   Como um usuário
   Desejo ver a hora atual e informações sempre atualizadas
   Para confiar no que a tela mostra
+<a id="ct-099"></a>
 
   @CT-099
   Cenário: Relógio do topo atualiza a cada segundo
     Dado que acesso a aplicação Brasa Lembretes
     Então a barra superior exibe dia da semana, dia, mês e hora no formato "HH:MM:SS"
     E os segundos avançam a cada segundo
+<a id="ct-100"></a>
 
   @CT-100
   Cenário: O tempo relativo dos cartões é atualizado sem recarregar
@@ -1048,6 +1148,7 @@ Funcionalidade: Relógio e atualização automática
     E que existe um lembrete agendado para daqui a 5 minutos
     Quando aguardo 2 minutos
     Então o chip de tempo relativo exibe aproximadamente "em 3 min"
+<a id="ct-101"></a>
 
   @CT-101
   Cenário: A passagem do horário gera alerta sem recarregar
@@ -1055,6 +1156,7 @@ Funcionalidade: Relógio e atualização automática
     E que existe um lembrete agendado para o próximo minuto
     Quando aguardo o horário chegar sem interagir com a página
     Então o alerta é exibido automaticamente
+<a id="ct-102"></a>
 
   @CT-102
   Cenário: O bloco "Próximo lembrete" muda após o primeiro vencer
@@ -1074,6 +1176,7 @@ Funcionalidade: Layout, responsividade e acessibilidade
   Como um usuário em computador ou celular
   Desejo usar a aplicação com conforto
   Para gerenciar meus lembretes em qualquer dispositivo
+<a id="ct-103"></a>
 
   @CT-103
   Cenário: Layout nos principais tamanhos de tela
@@ -1090,6 +1193,7 @@ Funcionalidade: Layout, responsividade e acessibilidade
       | 561     | o cartão exibe horário à esquerda e conteúdo à direita              |
       | 820     | o conteúdo fica centralizado com largura máxima                     |
       | 1920    | o conteúdo fica centralizado com largura máxima                     |
+<a id="ct-104"></a>
 
   @CT-104
   Cenário: Formulário como janela central ou janela inferior
@@ -1102,6 +1206,7 @@ Funcionalidade: Layout, responsividade e acessibilidade
       | largura | posicao                         |
       | 560     | colado à parte inferior da tela |
       | 561     | centralizado na tela            |
+<a id="ct-105"></a>
 
   @CT-105
   Cenário: Formulário longo é rolável em tela pequena
@@ -1109,6 +1214,7 @@ Funcionalidade: Layout, responsividade e acessibilidade
     E que o viewport tem 360 x 560 px
     Quando abro o formulário com frequência visível
     Então consigo rolar o formulário até o botão "Salvar lembrete"
+<a id="ct-106"></a>
 
   @CT-106
   Cenário: Teclado do celular não impede o preenchimento
@@ -1117,6 +1223,7 @@ Funcionalidade: Layout, responsividade e acessibilidade
     Quando toco no campo de data e hora
     Então o seletor nativo de data e hora é exibido
     E consigo escolher e confirmar o valor
+<a id="ct-107"></a>
 
   @CT-107
   Cenário: Navegação completa por teclado
@@ -1124,6 +1231,7 @@ Funcionalidade: Layout, responsividade e acessibilidade
     Quando uso apenas Tab, Shift+Tab, Enter, Espaço e Esc
     Então consigo abrir o formulário, preencher os campos, escolher Único/Recorrente, salvar, editar, excluir com confirmação e tratar um alerta
     E o foco é sempre visível
+<a id="ct-108"></a>
 
   @CT-108
   Cenário: Campos inválidos são indicados de forma acessível
@@ -1131,18 +1239,21 @@ Funcionalidade: Layout, responsividade e acessibilidade
     Quando tento salvar o formulário vazio
     Então os campos com erro recebem aria-invalid="true"
     E as mensagens de erro são exibidas junto aos campos
+<a id="ct-109"></a>
 
   @CT-109
   Cenário: Janelas anunciam sua função para leitores de tela
     Dado que acesso a aplicação Brasa Lembretes
     Então o formulário possui role="dialog" com rótulo "Novo lembrete"
     E o alerta possui role="alertdialog" com título e descrição associados
+<a id="ct-110"></a>
 
   @CT-110
   Cenário: Tamanho mínimo de alvo de toque
     Dado que acesso a aplicação Brasa Lembretes
     E que estou em um celular
     Então os botões principais têm altura mínima de 44 px
+<a id="ct-111"></a>
 
   @CT-111
   Cenário: Preferência por movimento reduzido
@@ -1150,6 +1261,7 @@ Funcionalidade: Layout, responsividade e acessibilidade
     E que o sistema operacional está configurado para reduzir animações
     Quando abro o formulário e um alerta
     Então não há animações de entrada nem de pulsação
+<a id="ct-112"></a>
 
   @CT-112
   Cenário: Aviso rápido (toast) some sozinho
@@ -1157,6 +1269,7 @@ Funcionalidade: Layout, responsividade e acessibilidade
     Quando crio um lembrete
     Então o aviso é exibido na parte inferior da tela
     E desaparece após cerca de 3 segundos
+<a id="ct-113"></a>
 
   @CT-113
   Cenário: Compatibilidade entre navegadores
@@ -1172,6 +1285,7 @@ Funcionalidade: Layout, responsividade e acessibilidade
       | Safari (macOS)                |
       | Chrome (Android)              |
       | Safari (iOS)                  |
+<a id="ct-114"></a>
 
   @CT-114
   Cenário: Fontes externas indisponíveis
@@ -1192,6 +1306,7 @@ Funcionalidade: Comportamento sob alterações de tempo e energia
   Como um usuário da aplicação
   Desejo que meus lembretes disparem no momento correto mesmo sob variações de relógio ou energia
   Para manter a confiabilidade dos avisos
+<a id="ct-115"></a>
 
   @CT-115
   Cenário: Lembrete agendado através da transição do horário de verão
@@ -1200,6 +1315,7 @@ Funcionalidade: Comportamento sob alterações de tempo e energia
     Quando o horário do sistema atinge o momento correspondente
     Então o alerta dispara sem travar a interface
     E nenhum alerta duplicado é exibido
+<a id="ct-116"></a>
 
   @CT-116
   Cenário: Mudança de fuso horário do dispositivo com lembretes futuros pendentes
@@ -1209,6 +1325,7 @@ Funcionalidade: Comportamento sob alterações de tempo e energia
     E recarrego a página
     Então o horário exibido no cartão reflete a hora correspondente no novo fuso
     E o alerta é acionado coerentemente com o relógio atualizado do dispositivo
+<a id="ct-119"></a>
 
   @CT-119
   Cenário: Retomada após suspensão ou hibernação do dispositivo
@@ -1218,6 +1335,7 @@ Funcionalidade: Comportamento sob alterações de tempo e energia
     Quando o dispositivo acorda e a aba volta a ficar ativa
     Então o alerta do lembrete vencido é exibido imediatamente
     E o relógio do topo sincroniza com a hora real do sistema operacional
+<a id="ct-120"></a>
 
   @CT-120
   Cenário: Ajuste manual do relógio do sistema para o passado
@@ -1233,6 +1351,7 @@ Funcionalidade: Limites de armazenamento e carga
   Como um usuário com grande volume de lembretes
   Desejo que a aplicação lide de forma graciosa com o esgotamento de espaço
   Para não perder meus dados cadastrados nem travar a tela
+<a id="ct-117"></a>
 
   @CT-117
   Cenário: Tratamento de cota do navegador esgotada (localStorage cheio)
@@ -1242,6 +1361,7 @@ Funcionalidade: Limites de armazenamento e carga
     Então vejo o aviso "Não foi possível salvar: armazenamento local cheio. Exclua lembretes antigos ou limpe o histórico de concluídos."
     E a tela não apresenta erro não tratado
     E os lembretes salvos anteriormente permanecem intactos
+<a id="ct-118"></a>
 
   @CT-118
   Cenário: Responsividade da interface com grande volume de lembretes
@@ -1255,6 +1375,7 @@ Funcionalidade: Regras de borda para anos bissextos em recorrências
   Como um usuário
   Desejo precisão no agendamento de recorrências em datas variáveis de calendário
   Para não perder compromissos agendados no final de fevereiro
+<a id="ct-122"></a>
 
   @CT-122
   Cenário: Avanço de lembrete diário em ano bissexto
@@ -1263,6 +1384,7 @@ Funcionalidade: Regras de borda para anos bissextos em recorrências
     Quando clico em "Marcar como visto"
     Então a próxima ocorrência exibida é "29/02/2028" às 10:00
     E não o dia primeiro de março
+<a id="ct-123"></a>
 
   @CT-123
   Cenário: Recorrência mensal cadastrada originalmente em 29 de fevereiro
@@ -1278,6 +1400,7 @@ Funcionalidade: Resiliência de schema e segurança de entrada
   Como um usuário
   Desejo ter meus dados protegidos contra falhas de versão e códigos maliciosos
   Para usar a ferramenta com segurança e estabilidade
+<a id="ct-121"></a>
 
   @CT-121
   Cenário: Carregamento de dados salvos com propriedades obrigatórias ausentes
@@ -1286,6 +1409,7 @@ Funcionalidade: Resiliência de schema e segurança de entrada
     Quando a aplicação é carregada
     Então o item é normalizado com valores padrão
     E a lista é exibida sem travar o carregamento dos demais lembretes
+<a id="ct-124"></a>
 
   @CT-124
   Cenário: Sanitização de script (XSS) no campo de descrição
