@@ -53,7 +53,7 @@
 1. Foi possível planejar e executar testes com base na experiência prévia em aplicações semelhantes.
 2. A criação de casos de teste em Gherkin e no formato ISO demanda tempo e organização, sendo muito moroso
 3. Estratégias exploratórias, combinadas com heurísticas e critérios de verificação, se mostraram muito úteis em entregas com regras de negócio ainda pouco definidas.
-4. todo
-5. todo
+4. A priorização dos testes ajuda a concentrar o esforço nos fluxos mais importantes quando não há tempo para executar todos os cenários.
+5. A revisão dos casos de teste pode revelar lacunas de cobertura e casos duplicados antes da execução.
 
 **Integrantes:** Dennys, Isabella Henriques, Patrick Aguiar, Taís Santos e Yara Rodrigues
