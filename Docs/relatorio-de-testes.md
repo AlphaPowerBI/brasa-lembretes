@@ -19,6 +19,8 @@
 
 ## 3. Execução dos testes
 
+Acompanhe o status de cada caso no [Checklist de casos de teste](./checklist-casos-de-teste.md).
+
 | Métrica | Quantidade |
 | --- | ---: |
 | Casos planejados | 124 |
