@@ -51,10 +51,11 @@ Acompanhe o status de cada caso no [Checklist de casos de teste](./checklist-cas
 
 ## 5. Aprendizados
 
-1. Foi possível planejar e executar testes com base na experiência prévia em aplicações semelhantes.
-2. A criação de casos de teste em Gherkin e no formato ISO demanda tempo e organização, sendo muito moroso
-3. Estratégias exploratórias, combinadas com heurísticas e critérios de verificação, se mostraram muito úteis em entregas com regras de negócio ainda pouco definidas.
-4. A priorização dos testes ajuda a concentrar o esforço nos fluxos mais importantes quando não há tempo para executar todos os cenários.
-5. A revisão dos casos de teste pode revelar lacunas de cobertura e casos duplicados antes da execução.
+1. Experiência prévia ajuda no planejamento: foi possível planejar e executar os testes com base na experiência em aplicações semelhantes, o que deu mais segurança na definição dos cenários.
+2. Casos de teste formais exigem tempo e organização: escrever os casos em Gherkin e no formato ISO é um trabalho demorado, e é preciso considerar esse esforço no planejamento da atividade.
+3. Testes exploratórios funcionam bem quando as regras não estão claras: combinar estratégias exploratórias com heurísticas e critérios de verificação se mostrou muito útil em entregas com regras de negócio ainda pouco definidas.
+4. Priorizar os testes concentra o esforço no que importa: quando não há tempo para executar todos os cenários, priorizar ajuda a cobrir primeiro os fluxos mais importantes.
+5. Revisar os casos antes de executar evita problemas: a revisão dos casos de teste pode revelar lacunas de cobertura e casos duplicados antes mesmo da execução.
+6. Evidências devem ser coletadas na hora em que o bug aparece: ao identificar um bug durante a execução, é necessário coletar a evidência e registrá-lo imediatamente. Neste projeto, um dos bugs foi apenas anotado para registro posterior e não foi mais possível reproduzi-lo imediatamente, o que gerou retrabalho e perda de informação.
 
 **Integrantes:** Dennys, Isabella Henriques, Patrick Aguiar, Taís Santos e Yara Rodrigues
