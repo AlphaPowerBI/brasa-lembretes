@@ -58,7 +58,16 @@ Baseado na ISO-29119-3 e em ferramentas de gestão de defeitos.
 | **Prioridade** | Média |
 | **Severidade** | Média |
 | **Informações sobre  o Software** | https://brasa-lembretes.vercel.app/ |
-| **Rastreabilidade** | |
+| **Rastreabilidade** | [CT-097](./Casos%20de%20Teste%20em%20Gherkin.md#ct-097) |
 | **Status** | To Do |
 
-![Evidência do defeito 03](./videos/BugBrasaLembretes-097.mp4)
+**Passos para reproduzir**
+
+1. Acessar a aplicação Brasa Lembretes em duas abas no mesmo navegador.
+2. Criar 1 lembrete.
+3. Aguardar o vencimento do lembrete e o alerta ser exibido.
+4. Observar as duas abas: o alerta foi exibido nas duas.
+5. Clicar em “Marcar como visto” na aba 1 e observar aba 2: o alerta segue sendo exibido.
+6. Tentar clicar em "Marcar como visto" na aba 2: nada acontece.
+
+[Assistir à evidência do defeito 03](./videos/BugBrasaLembretes-097.mp4)
