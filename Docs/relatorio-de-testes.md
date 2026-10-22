@@ -24,11 +24,11 @@ Acompanhe o status de cada caso no [Checklist de casos de teste](./checklist-cas
 | Métrica | Quantidade |
 | --- | ---: |
 | Casos planejados | 124 |
-| Casos executados | 94 |
-| Passaram | 89 |
-| Falharam | 1 |
-| Bloqueados / não executados | 34 |
-| Defeitos encontrados | 2 |
+| Casos executados | 107 |
+| Passaram | 105 |
+| Falharam | 2 |
+| Bloqueados / não executados | 17 |
+| Defeitos encontrados | 3 |
 
 
 ## 4. Relato de defeitos
@@ -40,6 +40,7 @@ Acompanhe o status de cada caso no [Checklist de casos de teste](./checklist-cas
 - **Prioridade / severidade:** baixa.
 - **Rastreabilidade:** identificado durante o [Relatório de Sessão 1](./Relatorio_de_Sessao.md#relat%C3%B3rio-de-sess%C3%A3o-1).
 - **Registro completo e evidência:** [Defeito 01](./Defeito.md#defeito-01).
+  
 ### DEF-02 — Indicador da fila do alerta não acompanha a sequência correta
 
 - **Descrição:** ao disparar três alertas simultâneos, o primeiro alerta não exibe o indicador da fila (esperado “1 de 3”), e ao marcar como visto o primeiro item a contagem reinicia para “1 de 2” em vez de “2 de 3”.
@@ -47,6 +48,14 @@ Acompanhe o status de cada caso no [Checklist de casos de teste](./checklist-cas
 - **Prioridade / severidade:** média / baixa.
 - **Rastreabilidade:** identificado no caso de teste [CT-055](./checklist-casos-de-teste.md#ct-055)
 - **Registro completo e evidência:** [Defeito 02](./Defeito.md#defeito-02).
+
+### DEF-03 — Alerta de lembrete fica travado em uma das telas em caso de mais de uma aba aberta
+
+- **Descrição:** ao marcar lembrete de uma das abas do navegador como "lido", o alerta em outra aba segue sendo exibido, e fica travado na tela.
+- **Impacto:** é necessário recarregar a página para conseguir usar novamente.
+- **Prioridade / severidade:** média / média.
+- **Rastreabilidade:** identificado no caso de teste [CT-097](./checklist-casos-de-teste.md#ct-097)
+- **Registro completo e evidência:** [Defeito 03](./Defeito.md#defeito-03).
 
 
 ## 5. Aprendizados
