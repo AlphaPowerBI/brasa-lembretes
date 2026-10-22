@@ -45,4 +45,20 @@ Baseado na ISO-29119-3 e em ferramentas de gestão de defeitos.
 
 [Assistir à evidência do defeito 02](./videos/EvidenciaBUGFila.mp4)
 
----
+## Defeito 03
+
+| ID | 03 |
+| :---- | :---- |
+| **Título** | Alerta de lembrete fica travado em uma das telas em caso de mais de uma aba aberta |
+| **Testador** | Taís Santos |
+| **Data e Hora** | 21/10/2026 \- 08:15 |
+| **Resultado Esperado** | Ao marcar lembrete como "lido", os alertas de todas as abas do navegador devem ser fechados. |
+| **Resultado Atual** | Ao marcar lembrete de uma das abas do navegador como "lido", o alerta em outra aba segue sendo exibido, e fica travado na tela. É necessário recarregar a página para conseguir usar novamente. |
+| **Evidências** | [Visualizar vídeo da evidência](./videos/BugBrasaLembretes-097.mp4) |
+| **Prioridade** | Média |
+| **Severidade** | Média |
+| **Informações sobre  o Software** | https://brasa-lembretes.vercel.app/ |
+| **Rastreabilidade** | |
+| **Status** | To Do |
+
+![Evidência do defeito 03](./videos/BugBrasaLembretes-097.mp4)
