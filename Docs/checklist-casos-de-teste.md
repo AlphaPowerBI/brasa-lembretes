@@ -95,36 +95,36 @@ Este documento consolida os 124 casos de teste formalizados no arquivo [Casos de
 | [CT-089](./Casos%20de%20Teste%20em%20Gherkin.md#ct-089) | 🟢 Passou |
 | [CT-090](./Casos%20de%20Teste%20em%20Gherkin.md#ct-090) | 🟢 Passou |
 | [CT-091](./Casos%20de%20Teste%20em%20Gherkin.md#ct-091) | 🟢 Passou |
-| [CT-092](./Casos%20de%20Teste%20em%20Gherkin.md#ct-092) | ⚪ Não Executado |
-| [CT-093](./Casos%20de%20Teste%20em%20Gherkin.md#ct-093) | ⚪ Não Executado |
-| [CT-094](./Casos%20de%20Teste%20em%20Gherkin.md#ct-094) | ⚪ Não Executado |
+| [CT-092](./Casos%20de%20Teste%20em%20Gherkin.md#ct-092) | 🟢 Passou |
+| [CT-093](./Casos%20de%20Teste%20em%20Gherkin.md#ct-093) | 🟢 Passou |
+| [CT-094](./Casos%20de%20Teste%20em%20Gherkin.md#ct-094) | 🟢 Passou |
 | [CT-095](./Casos%20de%20Teste%20em%20Gherkin.md#ct-095) | ⚪ Não Executado |
-| [CT-096](./Casos%20de%20Teste%20em%20Gherkin.md#ct-096) | ⚪ Não Executado |
-| [CT-097](./Casos%20de%20Teste%20em%20Gherkin.md#ct-097) | ⚪ Não Executado |
-| [CT-098](./Casos%20de%20Teste%20em%20Gherkin.md#ct-098) | ⚪ Não Executado |
+| [CT-096](./Casos%20de%20Teste%20em%20Gherkin.md#ct-096) | 🟢 Passou |
+| [CT-097](./Casos%20de%20Teste%20em%20Gherkin.md#ct-097) | 🔴 Falhou |
+| [CT-098](./Casos%20de%20Teste%20em%20Gherkin.md#ct-098) | 🟢 Passou |
 | [CT-099](./Casos%20de%20Teste%20em%20Gherkin.md#ct-099) | 🟢 Passou |
 | [CT-100](./Casos%20de%20Teste%20em%20Gherkin.md#ct-100) | 🟢 Passou |
 | [CT-101](./Casos%20de%20Teste%20em%20Gherkin.md#ct-101) | 🟢 Passou |
 | [CT-102](./Casos%20de%20Teste%20em%20Gherkin.md#ct-102) | 🟢 Passou |
-| [CT-103](./Casos%20de%20Teste%20em%20Gherkin.md#ct-103) | ⚪ Não Executado |
-| [CT-104](./Casos%20de%20Teste%20em%20Gherkin.md#ct-104) | ⚪ Não Executado |
-| [CT-105](./Casos%20de%20Teste%20em%20Gherkin.md#ct-105) | ⚪ Não Executado |
+| [CT-103](./Casos%20de%20Teste%20em%20Gherkin.md#ct-103) | 🟢 Passou |
+| [CT-104](./Casos%20de%20Teste%20em%20Gherkin.md#ct-104) | 🟢 Passou |
+| [CT-105](./Casos%20de%20Teste%20em%20Gherkin.md#ct-105) | 🟢 Passou |
 | [CT-106](./Casos%20de%20Teste%20em%20Gherkin.md#ct-106) | ⚪ Não Executado |
-| [CT-107](./Casos%20de%20Teste%20em%20Gherkin.md#ct-107) | ⚪ Não Executado |
-| [CT-108](./Casos%20de%20Teste%20em%20Gherkin.md#ct-108) | ⚪ Não Executado |
-| [CT-109](./Casos%20de%20Teste%20em%20Gherkin.md#ct-109) | ⚪ Não Executado |
-| [CT-110](./Casos%20de%20Teste%20em%20Gherkin.md#ct-110) | ⚪ Não Executado |
-| [CT-111](./Casos%20de%20Teste%20em%20Gherkin.md#ct-111) | ⚪ Não Executado |
-| [CT-112](./Casos%20de%20Teste%20em%20Gherkin.md#ct-112) | ⚪ Não Executado |
-| [CT-113](./Casos%20de%20Teste%20em%20Gherkin.md#ct-113) | ⚪ Não Executado |
-| [CT-114](./Casos%20de%20Teste%20em%20Gherkin.md#ct-114) | ⚪ Não Executado |
-| [CT-115](./Casos%20de%20Teste%20em%20Gherkin.md#ct-115) | ⚪ Não Executado |
-| [CT-116](./Casos%20de%20Teste%20em%20Gherkin.md#ct-116) | ⚪ Não Executado |
-| [CT-117](./Casos%20de%20Teste%20em%20Gherkin.md#ct-117) | ⚪ Não Executado |
-| [CT-118](./Casos%20de%20Teste%20em%20Gherkin.md#ct-118) | ⚪ Não Executado |
-| [CT-119](./Casos%20de%20Teste%20em%20Gherkin.md#ct-119) | ⚪ Não Executado |
-| [CT-120](./Casos%20de%20Teste%20em%20Gherkin.md#ct-120) | ⚪ Não Executado |
-| [CT-121](./Casos%20de%20Teste%20em%20Gherkin.md#ct-121) | ⚪ Não Executado |
-| [CT-122](./Casos%20de%20Teste%20em%20Gherkin.md#ct-122) | ⚪ Não Executado |
-| [CT-123](./Casos%20de%20Teste%20em%20Gherkin.md#ct-123) | ⚪ Não Executado |
-| [CT-124](./Casos%20de%20Teste%20em%20Gherkin.md#ct-124) | ⚪ Não Executado |
+| [CT-107](./Casos%20de%20Teste%20em%20Gherkin.md#ct-107) | 🟢 Passou |
+| [CT-108](./Casos%20de%20Teste%20em%20Gherkin.md#ct-108) | 🟢 Passou |
+| [CT-109](./Casos%20de%20Teste%20em%20Gherkin.md#ct-109) | 🟢 Passou |
+| [CT-110](./Casos%20de%20Teste%20em%20Gherkin.md#ct-110) | 🟢 Passou |
+| [CT-111](./Casos%20de%20Teste%20em%20Gherkin.md#ct-111) | 🟢 Passou |
+| [CT-112](./Casos%20de%20Teste%20em%20Gherkin.md#ct-112) | 🟢 Passou |
+| [CT-113](./Casos%20de%20Teste%20em%20Gherkin.md#ct-113) | 🟢 Passou |
+| [CT-114](./Casos%20de%20Teste%20em%20Gherkin.md#ct-114) | 🟢 Passou |
+| [CT-115](./Casos%20de%20Teste%20em%20Gherkin.md#ct-115) | 🟡 Bloqueado |
+| [CT-116](./Casos%20de%20Teste%20em%20Gherkin.md#ct-116) | 🟡 Bloqueado |
+| [CT-117](./Casos%20de%20Teste%20em%20Gherkin.md#ct-117) | 🟡 Bloqueado |
+| [CT-118](./Casos%20de%20Teste%20em%20Gherkin.md#ct-118) | 🟡 Bloqueado |
+| [CT-119](./Casos%20de%20Teste%20em%20Gherkin.md#ct-119) | 🟡 Bloqueado |
+| [CT-120](./Casos%20de%20Teste%20em%20Gherkin.md#ct-120) | 🟡 Bloqueado |
+| [CT-121](./Casos%20de%20Teste%20em%20Gherkin.md#ct-121) | 🟡 Bloqueado |
+| [CT-122](./Casos%20de%20Teste%20em%20Gherkin.md#ct-122) | 🟡 Bloqueado |
+| [CT-123](./Casos%20de%20Teste%20em%20Gherkin.md#ct-123) | 🟡 Bloqueado |
+| [CT-124](./Casos%20de%20Teste%20em%20Gherkin.md#ct-124) | 🟡 Bloqueado |
